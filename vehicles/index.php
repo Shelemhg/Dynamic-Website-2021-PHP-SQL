@@ -8,24 +8,15 @@
 require_once $_SERVER['DOCUMENT_ROOT'] . '/phpmotors/library/connections.php';
 // Get the PHP Motors model for use as needed
 require_once $_SERVER['DOCUMENT_ROOT'] . '/phpmotors/model/main-model.php';
-// Get the accounts model
-require_once $_SERVER['DOCUMENT_ROOT'] . '/phpmotors/model/accounts-model.php';
-// Get the accounts model
+// Get the VEHICLES model
 require_once $_SERVER['DOCUMENT_ROOT'] . '/phpmotors/model/vehicles-model.php';
 
 
 // Get the array of classifications, from the main-model.php file
 $classifications = getClassifications();
-$classificationsList = '';
 // TEST LINES V
 // var_dump($classifications);
 // 	exit;
-
-foreach ($classifications as $classification) {
-    $classificationsList .= "<option value='$classification[classificationName]'>$classification[classificationName]</option>";
-}
-
-
 
 // Build a navigation bar using the $classifications array
 $navList = '<ul>';
@@ -40,6 +31,12 @@ $navList .= '</ul>';
 // echo $navList;
 // exit;
 
+$classificationsList = '';
+$classIds = getClassId();
+//  Creates the classificationsList for the drop down menu on add-vehicle.php
+foreach ($classIds as $classId) {
+    $classificationsList .= "<option value='$classId[classificationId]'>$classId[classificationName]</option>";
+}
 
 
 
@@ -66,24 +63,26 @@ switch ($action) {
         $invPrice = filter_input(INPUT_POST, 'invPrice');
         $invStock = filter_input(INPUT_POST, 'invStock');
         $invColor = filter_input(INPUT_POST, 'invColor');
+        $classificationId = filter_input(INPUT_POST, 'classificationId');
+
 
         // Check for missing data
-        if(empty($invMake) || empty($invModel) || empty($clientEmail) || empty($invPrice) || empty($invStock) || empty($invColor)){
+        if(empty($invMake) || empty($invModel) || empty($invPrice) || empty($invStock) || empty($invColor) || empty($classificationId)){
             $message = '<p>Please provide information for all empty form fields.</p>';
             include $_SERVER['DOCUMENT_ROOT'] .'/phpmotors/view/add-vehicle.php';
             exit; 
         }
         $regOutcome = "";
         // Send the data to the model
-        $regOutcome = regVehicle($invMake, $invModel, $invDescription, $invImage, $invThumbnail, $invPrice, $invStock, $invColor);
+        $regOutcome = regVehicle($invMake, $invModel, $invDescription, $invImage, $invThumbnail, $invPrice, $invStock, $invColor, $classificationId);
         // Check and report the result
         if($regOutcome === 1){
             $message = "<p>Register of $invModel successful.</p>";
-            include $_SERVER['DOCUMENT_ROOT'] .'/phpmotors/view/login.php';
+            include $_SERVER['DOCUMENT_ROOT'] .'/phpmotors/view/add-vehicle.php';
             exit;
         } else {
             $message = "<p>Sorry, the registration of $invModel failed. Please try again.</p>";
-            include $_SERVER['DOCUMENT_ROOT'] .'/phpmotors/view/registration.php';
+            include $_SERVER['DOCUMENT_ROOT'] .'/phpmotors/view/add-vehicle.php';
             exit;
         }
         break;        

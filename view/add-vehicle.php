@@ -9,14 +9,14 @@
                     <h2>*Not all Fields are Required</h2>
                     <form action="/phpmotors/vehicles/index.php" method="post">
                         <br>  
-                        <select name="cars" id="cars">
+                        <select name='classificationId' id="cars">
                             <option value="" disabled selected>Choose Car Classification</option>
                             <?php 
                                 if(!empty($classificationsList)){
                                     echo $classificationsList;
                                 }
                             ?>
-                        </select><br>                                            
+                        </select><br>
                         <label for="invMake">Make</label><br>
                         <input name='invMake' id='invMake' type="text"><br>
                         <label for="invModel">Model</label><br>

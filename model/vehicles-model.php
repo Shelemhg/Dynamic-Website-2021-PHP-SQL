@@ -24,12 +24,12 @@ function regClassification($classificationName){
     return $rowsChanged;
 }
 
-function regVehicle($invMake, $invModel, $invDescription, $invImage, $invThumbnail, $invPrice, $invStock, $invColor){
+function regVehicle($invMake, $invModel, $invDescription, $invImage, $invThumbnail, $invPrice, $invStock, $invColor, $classificationId){
     // Create a connection object using the phpmotors connection function
     $db = phpmotorsConnect();
     // The SQL statement
-    $sql = 'INSERT INTO inventory (invMake, invModel, invDescription, invImage , invThumbnail, invPrice, invStock, invColor)
-        VALUES (:invMake, :invModel, :invDescription, :invImage, :invThumbnail, :invPrice, :invStock, :invColor)';
+    $sql = 'INSERT INTO inventory (invMake, invModel, invDescription, invImage , invThumbnail, invPrice, invStock, invColor, classificationId)
+        VALUES (:invMake, :invModel, :invDescription, :invImage, :invThumbnail, :invPrice, :invStock, :invColor, :classificationId)';
 
 
     // Create the prepared statement using the phpmotors connection
@@ -45,6 +45,7 @@ function regVehicle($invMake, $invModel, $invDescription, $invImage, $invThumbna
     $stmt->bindValue(':invPrice', $invPrice, PDO::PARAM_STR);
     $stmt->bindValue(':invStock', $invStock, PDO::PARAM_STR);
     $stmt->bindValue(':invColor', $invColor, PDO::PARAM_STR);
+    $stmt->bindValue(':classificationId', $classificationId, PDO::PARAM_STR);    
     // Insert the data
     $stmt->execute();
     // Ask how many rows changed as a result of our insert
