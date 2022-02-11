@@ -12,24 +12,7 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/phpmotors/model/main-model.php';
 require_once $_SERVER['DOCUMENT_ROOT'] . '/phpmotors/model/vehicles-model.php';
 
 
-// Get the array of classifications, from the main-model.php file
-$classifications = getClassifications();
-// TEST LINES V
-// var_dump($classifications);
-// 	exit;
-
-// Build a navigation bar using the $classifications array
-$navList = '<ul>';
-$navList .= "<li><a href='/phpmotors/index.php' title='View the PHP Motors home page'>Home</a></li>";
-
-foreach ($classifications as $classification) {
-    $navList .= "<li><a href='/phpmotors/index.php?action=".urlencode($classification['classificationName'])."' title='View our $classification[classificationName] product line'>$classification[classificationName]</a></li>";
-}
-$navList .= '</ul>';
-
-// Test for the information brough from the server
-// echo $navList;
-// exit;
+$navList = getNav();
 
 $classificationsList = '';
 $classIds = getClassId();
@@ -103,7 +86,9 @@ switch ($action) {
         // Check and report the result
         if($regOutcome === 1){
             $message = "<p>Registration of $classificationName was successful.</p>";
-            include $_SERVER['DOCUMENT_ROOT'] .'/phpmotors/view/add-classification.php';
+            // include $_SERVER['DOCUMENT_ROOT'] .'/phpmotors/view/add-classification.php';
+            $navList = getNav();
+            include $_SERVER['DOCUMENT_ROOT'] .'/phpmotors/view/vehicle-man.php';
             exit;
         } else {
             $message = "<p>Sorry but the registration of $classificationName failed. Please try again.</p>";
