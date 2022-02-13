@@ -6,15 +6,16 @@
             </section>
             <section>
                 <div class="wrapper space">
+                    <?php
+                        if (isset($message)){
+                            echo $message;
+                        }
+                    ?>
+                    <br>
                     <form action="/phpmotors/vehicles/index.php" method="post">
                         <label for="classificationName">Classification Name</label><br>
                         <input name='classificationName' id='classificationName' type="text" ><br>
-                        <?php
-                            if (isset($message)){
-                                echo $message;
-                            }
-                        ?>
-                        <input type="submit" name="submit" class="submit-btn" value="Add Classification"></input>
+                        <input type="submit" name="submit" class="extra-padding" value="Add Classification">
                         <!-- Add the action name - value pair -->
                         <input type="hidden" name="action" value="add-class">
                     </form>

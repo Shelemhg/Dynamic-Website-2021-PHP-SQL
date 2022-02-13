@@ -3,7 +3,6 @@
 //VEHICLES CONTROLLER
 
 
-
 // Get the database connection file
 require_once $_SERVER['DOCUMENT_ROOT'] . '/phpmotors/library/connections.php';
 // Get the PHP Motors model for use as needed
@@ -15,9 +14,9 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/phpmotors/model/vehicles-model.php';
 $navList = getNav();
 
 $classificationsList = '';
-$classIds = getClassId();
+$getClassifications = getClassifications();
 //  Creates the classificationsList for the drop down menu on add-vehicle.php
-foreach ($classIds as $classId) {
+foreach ($getClassifications as $classId) {
     $classificationsList .= "<option value='$classId[classificationId]'>$classId[classificationName]</option>";
 }
 
@@ -85,9 +84,10 @@ switch ($action) {
         $regOutcome = regClassification($classificationName);
         // Check and report the result
         if($regOutcome === 1){
-            $message = "<p>Registration of $classificationName was successful.</p>";
-            // include $_SERVER['DOCUMENT_ROOT'] .'/phpmotors/view/add-classification.php';
+            // $message = "<p>Register of $invModel successful.</p>";
+            $message = "";
             $navList = getNav();
+            // include $_SERVER['DOCUMENT_ROOT'] .'/phpmotors/view/add-classification.php';
             include $_SERVER['DOCUMENT_ROOT'] .'/phpmotors/view/vehicle-man.php';
             exit;
         } else {

@@ -24,9 +24,9 @@
                         <label for="invDescription">Description</label><br>
                         <input name='invDescription' id='invDescription' type="text" ><br>
                         <label for="invImage">Image Path</label><br>
-                        <input name='invImage' id='invImage' type="text"><br>
+                        <input name='invImage' id='invImage' type="text" value="/phpmotors/images/no-image.png"><br>
                         <label for="invThumbnail">Thumbnail Path</label><br>
-                        <input name='invThumbnail' id='invThumbnail' type="text"><br>
+                        <input name='invThumbnail' id='invThumbnail' type="text" value="/phpmotors/images/no-image.png"><br>
                         <label for="invPrice">Price</label><br>
                         <input name='invPrice' id='invPrice' type="number"><br>
                         <label for="invStock">Stock</label><br>
@@ -39,7 +39,7 @@
                                 echo $message;
                             }
                         ?>
-                        <input type="submit" name="submit" class="submit-btn" value="Add Classification"></input>
+                        <input type="submit" name="submit" class="extra-padding" value="Add Vehicle">
                         <!-- Add the action name - value pair -->
                         <input type="hidden" name="action" value="add-vehicle">
                     </form>

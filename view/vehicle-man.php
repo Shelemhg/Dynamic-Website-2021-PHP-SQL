@@ -13,13 +13,12 @@
                     ?>
                     <ul>
                         <li>                        
-                            <a href="/phpmotors/vehicles/index.php?action=add-classification-page">
+                            <a href="/phpmotors/vehicles/index.php?action=add-classification-page" class="no-horizontal-padding">
                                 Add Classification
                             </a>
                         </li>
-                        <br>
                         <li>                        
-                            <a href="/phpmotors/vehicles/index.php?action=add-vehicle-page">
+                            <a href="/phpmotors/vehicles/index.php?action=add-vehicle-page" class="no-horizontal-padding">
                                 Add Vehicle
                             </a>
                         </li>

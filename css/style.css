@@ -159,6 +159,12 @@ footer p {
 .space {
     margin: 1rem;
 }
+.other-btn {
+    font-size: 5.5rem;
+    padding: 0 1rem;
+    background-color: #0066ff;
+    margin:  2rem 0 ;
+}
 input {
     margin-bottom: 1rem;
 }
@@ -171,8 +177,12 @@ label {
     background-color: #0066ff;
     margin:  2rem 0 ;
 }
-
-
+.horizontal-padding {
+    padding: 1.5rem 1.5rem;
+}
+.extra-padding {
+    padding: 0 1.5rem;
+}
 
 
 
@@ -185,9 +195,9 @@ label {
         display: flex;
         justify-content: left;
     }
+    
     ul a{
         font-size: 1.5rem;
-        padding: 1.5rem 1.5rem;
     }
     .summary-box {
         margin: 1rem;
