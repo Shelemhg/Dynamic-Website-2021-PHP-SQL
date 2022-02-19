@@ -10,7 +10,7 @@ body {
     max-width: 1200px;
     min-width: 400px;
     margin: 0 auto;
-    background-image: url("./images/small_check.jpg");
+    background-image: url("../images/small_check.jpg");
     
 }
 .page-container {
@@ -81,6 +81,19 @@ h2 {
 h3 {
     margin-left: 1rem;
 }
+
+input:required:invalid {
+    border:1px solid red;
+}
+input:focus:invalid {
+    border:1px solid red;
+}
+input:required:valid {
+    border:1px solid green;
+}
+/* input:focus:invalid {
+    border:2px solid red;
+} */
 .summary-box {
     margin: 1rem 0.2rem;
     color: #0066ff;
