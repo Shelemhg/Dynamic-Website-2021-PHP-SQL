@@ -13,8 +13,10 @@
                     ?>
                     <br>
                     <form action="/phpmotors/vehicles/index.php" method="post">
-                        <label for="classificationName">Classification Name</label><br>
-                        <input name='classificationName' id='classificationName' type="text" ><br>
+                        <label for="classificationName">Classification Name</label><p>Max 30 char.</p>
+                        <input name='classificationName' id='classificationName' type="text" required autofocus maxlength="30"
+                            <?php if(isset($classificationName)){echo "value='$classificationName'";}?>>
+                        <br>
                         <input type="submit" name="submit" class="extra-padding" value="Add Classification">
                         <!-- Add the action name - value pair -->
                         <input type="hidden" name="action" value="add-class">
