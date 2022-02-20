@@ -51,6 +51,23 @@ switch ($action) {
         // Filter and store the data
         include $_SERVER['DOCUMENT_ROOT'] .'/phpmotors/view/registration.php';
         break;
+    case 'Login':
+        $clientEmail = trim(filter_input(INPUT_POST, 'clientEmail', FILTER_SANITIZE_EMAIL));
+        $clientPassword = trim(filter_input(INPUT_POST, 'clientPassword', FILTER_SANITIZE_STRING));
+        $clientEmail = checkEmail($clientEmail);
+        $checkPassword = checkPassword($clientPassword);        
+
+        // Check for missing data
+        if(empty($clientEmail) || empty($checkPassword)) {
+            $message = '<p>ERROR - Please provide information for all empty form fields.</p>';
+            include $_SERVER['DOCUMENT_ROOT'] .'/phpmotors/view/login.php';
+            exit; 
+        }
+
+
+
+
+        break;
     case 'register':
         // Filter and store the data
         $clientFirstname = trim(filter_input(INPUT_POST, 'clientFirstname', FILTER_SANITIZE_STRING));
@@ -58,14 +75,19 @@ switch ($action) {
         $clientEmail = trim(filter_input(INPUT_POST, 'clientEmail', FILTER_SANITIZE_EMAIL));
         $clientPassword = trim(filter_input(INPUT_POST, 'clientPassword', FILTER_SANITIZE_STRING));
         $clientEmail = checkEmail($clientEmail);
+        $checkPassword = checkPassword($clientPassword);
+
         // Check for missing data
-        if(empty($clientFirstname) || empty($clientLastname) || empty($clientEmail) || empty($clientPassword)){
-            $message = '<p>Please provide information for all empty form fields.</p>';
+        if(empty($clientFirstname) || empty($clientLastname) || empty($clientEmail) || empty($checkPassword)) {
+            $message = '<p>ERROR - Please provide information for all empty form fields.</p>';
             include $_SERVER['DOCUMENT_ROOT'] .'/phpmotors/view/registration.php';
             exit; 
         }
+
+        // Hash the checked password
+        $hashedPassword = password_hash($clientPassword, PASSWORD_DEFAULT);
         // Send the data to the model
-        $regOutcome = regClient($clientFirstname, $clientLastname, $clientEmail, $clientPassword);
+        $regOutcome = regClient($clientFirstname, $clientLastname, $clientEmail, $hashedPassword);
         // Check and report the result
         if($regOutcome === 1){
             $message = "<p>Thanks for registering $clientFirstname. Please use your email and password to login.</p>";

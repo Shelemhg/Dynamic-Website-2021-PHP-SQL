@@ -6,5 +6,14 @@ function checkEmail($clientEmail){
 }
 
 
+//  Check the password for a minimum of 8 charactersl
+//  at least 1 capital letter, at least 1 number and 
+//  at least 1 special character
+function checkPassword($clientPassword){
+    $pattern = '/^(?=.*[[:digit:]])(?=.*[[:punct:]\s])(?=.*[A-Z])(?=.*[a-z])(?:.{8,})$/';
+    return preg_match($pattern, $clientPassword);
+}
+
+
 
 ?>
