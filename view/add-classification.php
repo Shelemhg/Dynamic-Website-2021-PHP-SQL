@@ -5,7 +5,7 @@
         header('Location: /phpmotors/index.php');
     }else{
         //Check if the user has the right priviledges, otherwise return the user to home
-        if($clientData['clientLevel'] < 2){
+        if($_SESSION['clientData']['clientLevel'] < 2){
             header('Location: /phpmotors/index.php');
         }
     }
