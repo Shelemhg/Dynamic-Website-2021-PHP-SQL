@@ -14,11 +14,32 @@
                 <img src="/phpmotors/images/logo.png" alt="" id="icon-img">
             </div>
             <div class="my-account-wrapper">
-                <a href="/phpmotors/index.php?action=login">
-                    <p>
-                        My Account
-                    </p>
-                </a>
+                <div>
+                    <?php 
+                        // if(isset($cookieFirstname)){
+                        //     echo "<span>Welcome $cookieFirstname</span>";
+                        // }
+                        if (isset($_SESSION['message'])) {
+                            echo $_SESSION['message'];
+                        }
+                    ?>
+                </div>
+                    <?php
+                        if(isset($_SESSION['loggedin'])){
+                            // do something here if the value is FALSE
+                            echo "<a href='/phpmotors/accounts/index.php?action=Logout'>
+                                    <p>
+                                        Log Out
+                                    </p>
+                                </a>";
+                        }else{
+                            echo "<a href='/phpmotors/index.php?action=login-page'>
+                                    <p>
+                                        My Account
+                                    </p>
+                                </a>";
+                        }
+                    ?>
                 
             </div>
         </header>

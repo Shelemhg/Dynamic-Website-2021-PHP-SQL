@@ -1,3 +1,15 @@
+<?php
+    //Check if there is an open session, otherwise return the user to home
+    if(!isset($_SESSION['loggedin'])){
+        // do something here if the value is FALSE
+        header('Location: /phpmotors/index.php');
+    }else{
+        //Check if the user has the right priviledges, otherwise return the user to home
+        if($clientData['clientLevel'] < 2){
+            header('Location: /phpmotors/index.php');
+        }
+    }
+?>
 <?php include $_SERVER['DOCUMENT_ROOT'] . '/phpmotors/common/header.php'; ?>
             <section>
                 <div>

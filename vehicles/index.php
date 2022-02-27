@@ -3,22 +3,35 @@
 //VEHICLES CONTROLLER
 
 
+
+//Create or access a Session
+// session_start();
+if(!isset($_SESSION)){ 
+    session_start(); 
+} 
 // Get the database connection file
 require_once $_SERVER['DOCUMENT_ROOT'] . '/phpmotors/library/connections.php';
 // Get the PHP Motors model for use as needed
 require_once $_SERVER['DOCUMENT_ROOT'] . '/phpmotors/model/main-model.php';
 // Get the VEHICLES model
 require_once $_SERVER['DOCUMENT_ROOT'] . '/phpmotors/model/vehicles-model.php';
+// Get the functions library
+require_once $_SERVER['DOCUMENT_ROOT'] . '/phpmotors/library/functions.php';
 
-
+//  Gets the classification Array
+$classifications = getClassifications();
+//  Builds the navbar 
 $navList = getNav();
 
-$classificationsList = '';
-$getClassifications = getClassifications();
-//  Creates the classificationsList for the drop down menu on add-vehicle.php
-foreach ($getClassifications as $classId) {
-    $classificationsList .= "<option value='$classId[classificationId]'>$classId[classificationName]</option>";
-}
+
+
+// //  Builds the Select List for the Drop down menu of classificaitons
+// $classificationsList = '';
+// $getClassifications = getClassifications();
+// //  Creates the classificationsList for the drop down menu on add-vehicle.php
+// foreach ($getClassifications as $classId) {
+//     $classificationsList .= "<option value='$classId[classificationId]'>$classId[classificationName]</option>";
+// }
 
 
 
@@ -37,20 +50,21 @@ switch ($action) {
         break;
     case 'add-vehicle':
         // Filter and store the data
-        $invMake = filter_input(INPUT_POST, 'invMake');
-        $invModel = filter_input(INPUT_POST, 'invModel');
-        $invDescription = filter_input(INPUT_POST, 'invDescription');
-        $invImage = filter_input(INPUT_POST, 'invImage');
-        $invThumbnail = filter_input(INPUT_POST, 'invThumbnail');
-        $invPrice = filter_input(INPUT_POST, 'invPrice');
-        $invStock = filter_input(INPUT_POST, 'invStock');
-        $invColor = filter_input(INPUT_POST, 'invColor');
-        $classificationId = filter_input(INPUT_POST, 'classificationId');
+        $invMake = trim(filter_input(INPUT_POST, 'invMake', FILTER_SANITIZE_STRING));
+        $invModel = trim(filter_input(INPUT_POST, 'invModel', FILTER_SANITIZE_STRING));
+        $invDescription = trim(filter_input(INPUT_POST, 'invDescription', FILTER_SANITIZE_STRING));
+        $invImage = trim(filter_input(INPUT_POST, 'invImage', FILTER_SANITIZE_STRING));
+        $invThumbnail = trim(filter_input(INPUT_POST, 'invThumbnail', FILTER_SANITIZE_STRING));
+        $invPrice = trim(filter_input(INPUT_POST, 'invPrice', FILTER_SANITIZE_NUMBER_FLOAT));
+        $invStock = trim(filter_input(INPUT_POST, 'invStock', FILTER_SANITIZE_NUMBER_INT));
+        $invColor = trim(filter_input(INPUT_POST, 'invColor', FILTER_SANITIZE_STRING));
+        $classificationId = trim(filter_input(INPUT_POST, 'classificationId', FILTER_SANITIZE_NUMBER_INT));
 
 
         // Check for missing data
         if(empty($invMake) || empty($invModel) || empty($invPrice) || empty($invStock) || empty($invColor) || empty($classificationId)){
-            $message = '<p>Please provide information for all empty form fields.</p>';
+            $message = '<br><p>ERROR - Please provide information for all empty form fields.</p><br>';
+            // $message = "<p>Classification ID = $classificationId </p>";
             include $_SERVER['DOCUMENT_ROOT'] .'/phpmotors/view/add-vehicle.php';
             exit; 
         }

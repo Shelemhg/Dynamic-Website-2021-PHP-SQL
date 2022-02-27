@@ -5,9 +5,9 @@
         </div>
         <div class="wrapper space">
             <?php
-            if (isset($message)){
-                echo $message;
-            }
+                if (isset($message)){
+                    echo $message;
+                }
             ?>
             <form action="/phpmotors/accounts/index.php" method="post">
                 <label for="clientFirstname">First Name</label><br>

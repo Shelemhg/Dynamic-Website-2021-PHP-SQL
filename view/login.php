@@ -7,11 +7,11 @@
     <section>
         <div class="wrapper space">
             <?php
-            if (isset($message)){
-                echo $message;
-            }
+            if (isset($_SESSION['message'])) {
+                echo $_SESSION['message'];
+               }
             ?>
-            <form action="submit">
+            <form method="post" action="/phpmotors/accounts/">
                 <label for="clientEmail">Email</label><br>
                 <input name='clientEmail' id='clientEmail' type="email" required autofocus 
                     <?php if(isset($clientEmail)){echo "value='$clientEmail'";}  ?>><br>
