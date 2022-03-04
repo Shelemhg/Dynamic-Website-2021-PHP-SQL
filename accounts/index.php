@@ -50,9 +50,11 @@ if ($action == NULL){
 
 switch ($action) {
     case 'login-page':
+        $pageTitle = 'Login';
         include $_SERVER['DOCUMENT_ROOT'] .'/phpmotors/view/login.php';
         break;
     case 'registration':
+        $pageTitle = 'User Registration';
         // Filter and store the data
         include $_SERVER['DOCUMENT_ROOT'] .'/phpmotors/view/registration.php';
         break;
