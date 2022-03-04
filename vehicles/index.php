@@ -20,6 +20,8 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/phpmotors/library/functions.php';
 
 //  Gets the classification Array
 $classifications = getClassifications();
+
+$pageTitle = 'Vehicles';
 //  Builds the navbar 
 $navList = getNav();
 

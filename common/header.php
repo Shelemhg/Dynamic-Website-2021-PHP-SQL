@@ -5,7 +5,11 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/phpmotors/css/style.css" media="screen">
-    <title>Welcome to PHP Motors!</title>
+    <title>
+        <?php 
+            if(isset($pageTitle)){ echo $pageTitle;}
+        ?>
+    </title>
 </head>
 <body>
     <div class="page-container">

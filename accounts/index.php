@@ -18,7 +18,7 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/phpmotors/model/accounts-model.php';
 // Get the functions library
 require_once $_SERVER['DOCUMENT_ROOT'] . '/phpmotors/library/functions.php';
 
-
+$pageTitle = 'Accounts';
 
 // Get the array of classifications, from the main-model.php file
 $classifications = getClassifications();
