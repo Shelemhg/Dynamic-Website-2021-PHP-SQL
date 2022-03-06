@@ -101,10 +101,6 @@ switch ($action) {
         // Send them to the admin view
         include '../view/admin.php';
         exit;
-
-
-
-
         break;
     case 'Logout':
         // $_SESSION['loggedin'] = FALSE;        
