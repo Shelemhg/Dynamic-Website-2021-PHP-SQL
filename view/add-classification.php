@@ -7,6 +7,7 @@
         //Check if the user has the right priviledges, otherwise return the user to home
         if($_SESSION['clientData']['clientLevel'] < 2){
             header('Location: /phpmotors/index.php');
+            exit;
         }
     }
 ?>

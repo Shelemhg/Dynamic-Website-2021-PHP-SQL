@@ -2,6 +2,7 @@
     if(!isset($_SESSION['loggedin'])){
         // do something here if the value is FALSE
         header('Location: /phpmotors/index.php');
+        exit;
     }
 ?>
 <?php include $_SERVER['DOCUMENT_ROOT'] . '/phpmotors/common/header.php';?>

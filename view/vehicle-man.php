@@ -3,10 +3,15 @@
     if(!isset($_SESSION['loggedin'])){
         // do something here if the value is FALSE
         header('Location: /phpmotors/index.php');
+        exit;
     }else{
         //Check if the user has the right priviledges, otherwise return the user to home
         if($_SESSION['clientData']['clientLevel'] < 2){
             header('Location: /phpmotors/index.php');
+            if (isset($_SESSION['message'])) {
+                $message = $_SESSION['message'];
+            }
+            exit;
         }
     }
 ?>
@@ -19,9 +24,9 @@
             <section>
                 <div class="wrapper space">
                     <?php
-                    if (isset($message)){
-                        echo $message;
-                    }
+                    // if (isset($message)){
+                    //     echo $message;
+                    // }
                     ?>
                     <ul>
                         <li>                        
@@ -38,5 +43,22 @@
                     
 
                 </div>
+                <?php
+                    if (isset($message)) { 
+                        echo $message; 
+                    } 
+                    if (isset($classificationList)) { 
+                        echo '<h2>Vehicles By Classification</h2>'; 
+                        echo '<p>Choose a classification to see those vehicles</p>'; 
+                        echo $classificationList; 
+                    }
+                ?>
+                <noscript>
+                    <p><strong>JavaScript Must Be Enabled to Use this Page.</strong></p>
+                </noscript>
+                <table id="inventoryDisplay"></table>
+
             </section>
- <?php include $_SERVER['DOCUMENT_ROOT'] . '/phpmotors/common/footer.php'; ?>   
+            <script src="../JavaScript/inventory.js"></script>
+ <?php include $_SERVER['DOCUMENT_ROOT'] . '/phpmotors/common/footer.php'; ?>
+ <?php unset($_SESSION['message']); ?>

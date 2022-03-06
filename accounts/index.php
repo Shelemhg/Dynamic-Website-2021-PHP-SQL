@@ -66,6 +66,7 @@ switch ($action) {
 
         // Run basic checks, return if errors
         if (empty($clientEmail) || empty($passwordCheck)) {
+            $pageTitle = 'Login';
             $message = '<p class="notice">Please provide a valid email address and password.</p>';
             include '../view/login.php';
             exit;
@@ -80,6 +81,7 @@ switch ($action) {
         // If the hashes don't match create an error
         // and return to the login view
         if(!$hashCheck) {
+            $pageTitle = 'Login';
             $message = '<p class="notice">Please check your password and try again.</p>';
             include '../view/login.php';
         exit;

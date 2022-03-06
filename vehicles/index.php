@@ -72,7 +72,7 @@ switch ($action) {
         }
         $regOutcome = "";
         // Send the data to the model
-        $regOutcome = regVehicle($invMake, $invModel, $invDescription, $invImage, $invThumbnail, $invPrice, $invStock, $invColor, $classificationId);
+        $regOutcome = addVehicle($invMake, $invModel, $invDescription, $invImage, $invThumbnail, $invPrice, $invStock, $invColor, $classificationId);
         // Check and report the result
         if($regOutcome === 1){
             $message = "<p>Register of $invModel successful.</p>";
@@ -97,7 +97,7 @@ switch ($action) {
         $regOutcome = "";
 
         // Send the data to the model
-        $regOutcome = regClassification($classificationName);
+        $regOutcome = addClassification($classificationName);
         // Check and report the result
         if($regOutcome === 1){
             // $message = "<p>Register of $invModel successful.</p>";
@@ -112,9 +112,78 @@ switch ($action) {
             exit;
         }
         break;
+
+    /* * ********************************** 
+    * Get vehicles by classificationId 
+    * Used for starting Update & Delete process 
+    * ********************************** */ 
+    case 'getInventoryItems': 
+        // Get the classificationId 
+        $classificationId = filter_input(INPUT_GET, 'classificationId', FILTER_SANITIZE_NUMBER_INT); 
+        // Fetch the vehicles by classificationId from the DB 
+        $inventoryArray = getInventoryByClassification($classificationId); 
+        // Convert the array to a JSON object and send it back 
+        echo json_encode($inventoryArray); 
+        break;
+
+    case 'mod':
+        $invId = filter_input(INPUT_GET, 'invId', FILTER_VALIDATE_INT);
+        $invInfo = getInvItemInfo($invId);
+        if(count($invInfo)<1){
+            $message = 'Sorry, no vehicle information could be found.';
+        }
+        include '../view/vehicle-update.php';
+
+        break;
+
+    case 'updateVehicle':
+        // Filter and store the data
+        $invId = filter_input(INPUT_POST, 'invId', FILTER_SANITIZE_NUMBER_INT);
+
+        $invMake = trim(filter_input(INPUT_POST, 'invMake', FILTER_SANITIZE_STRING));
+        $invModel = trim(filter_input(INPUT_POST, 'invModel', FILTER_SANITIZE_STRING));
+        $invDescription = trim(filter_input(INPUT_POST, 'invDescription', FILTER_SANITIZE_STRING));
+        $invImage = trim(filter_input(INPUT_POST, 'invImage', FILTER_SANITIZE_STRING));
+        $invThumbnail = trim(filter_input(INPUT_POST, 'invThumbnail', FILTER_SANITIZE_STRING));
+        $invPrice = trim(filter_input(INPUT_POST, 'invPrice', FILTER_SANITIZE_NUMBER_FLOAT));
+        $invStock = trim(filter_input(INPUT_POST, 'invStock', FILTER_SANITIZE_NUMBER_INT));
+        $invColor = trim(filter_input(INPUT_POST, 'invColor', FILTER_SANITIZE_STRING));
+        $classificationId = trim(filter_input(INPUT_POST, 'classificationId', FILTER_SANITIZE_NUMBER_INT));
+
+
+        // Check for missing data
+        if(empty($invMake) || empty($invModel) || empty($invPrice) || empty($invStock) || empty($invColor) || empty($classificationId)){
+            $message = '<br><p>ERROR - Please provide information for all empty form fields.</p><br>';
+            // $message = "<p>Classification ID = $classificationId </p>";
+            include $_SERVER['DOCUMENT_ROOT'] .'/phpmotors/view/vehicle-update.php';
+            exit; 
+        }
+        // $updateResult = NULL;
+        // Send the data to the model
+        $updateResult = updateVehicle($invMake, $invModel, $invDescription, $invImage, $invThumbnail, $invPrice, $invStock, $invColor, $classificationId, $invId);
+        // Check the result
+        if($updateResult){
+            $message = "<p>Update of '$invMake $invModel' was successful.</p>";
+            //we will use the session to store the message, use a header function to return to the controller, and then have the controller deliver the view and display the message. 
+            // Changed from session message to regular message as this messed with the header session message.
+            $_SESSION['message'] = $message;
+            header('location: /phpmotors/vehicles');
+            // include $_SERVER['DOCUMENT_ROOT'] .'/phpmotors/view/vehicle-man.php';
+            exit;
+        } else {
+            $message = "<p>Sorry, the update of <b>'$invMake $invModel'</b> failed. Please try again.</p>";
+            include $_SERVER['DOCUMENT_ROOT'] .'/phpmotors/view/vehicle-update.php';
+            exit;
+        }
+        break;
+
     default:
+        $classificationList = buildClassificationList($classifications);
+
+
         include $_SERVER['DOCUMENT_ROOT'] .'/phpmotors/view/vehicle-man.php';
         break;
 }
+
 
 
