@@ -75,11 +75,12 @@ switch ($action) {
         $regOutcome = addVehicle($invMake, $invModel, $invDescription, $invImage, $invThumbnail, $invPrice, $invStock, $invColor, $classificationId);
         // Check and report the result
         if($regOutcome === 1){
-            $message = "<p>Register of $invModel successful.</p>";
-            include $_SERVER['DOCUMENT_ROOT'] .'/phpmotors/view/add-vehicle.php';
+            $message = "<p>Register of <b>'$invMake $invModel'</b> successful.</p>";
+            $_SESSION['message'] = $message;
+            header('location: /phpmotors/vehicles');
             exit;
         } else {
-            $message = "<p>Sorry, the registration of $invModel failed. Please try again.</p>";
+            $message = "<p>Sorry, the registration of <b>'$invMake $invModel'</b> failed. Please try again.</p>";
             include $_SERVER['DOCUMENT_ROOT'] .'/phpmotors/view/add-vehicle.php';
             exit;
         }
@@ -163,20 +164,63 @@ switch ($action) {
         $updateResult = updateVehicle($invMake, $invModel, $invDescription, $invImage, $invThumbnail, $invPrice, $invStock, $invColor, $classificationId, $invId);
         // Check the result
         if($updateResult){
-            $message = "<p>Update of '$invMake $invModel' was successful.</p>";
+            $message = "<p>Update of <b>'$invMake $invModel'</b> was successful.</p>";
             //we will use the session to store the message, use a header function to return to the controller, and then have the controller deliver the view and display the message. 
             // Changed from session message to regular message as this messed with the header session message.
             $_SESSION['message'] = $message;
             header('location: /phpmotors/vehicles');
             // include $_SERVER['DOCUMENT_ROOT'] .'/phpmotors/view/vehicle-man.php';
             exit;
-        } else {
+        }else{
             $message = "<p>Sorry, the update of <b>'$invMake $invModel'</b> failed. Please try again.</p>";
             include $_SERVER['DOCUMENT_ROOT'] .'/phpmotors/view/vehicle-update.php';
             exit;
         }
         break;
 
+    case 'del':
+        if(isset($invInfo['invMake'])){ 
+            $pageTitle = "Delete $invInfo[invMake] $invInfo[invModel]";
+        }
+
+        $invId = filter_input(INPUT_GET, 'invId', FILTER_VALIDATE_INT);
+        $invInfo = getInvItemInfo($invId);
+        if(count($invInfo)<1){
+            $message = 'Sorry, no vehicle information could be found.';
+        }
+        include $_SERVER['DOCUMENT_ROOT'] .'/phpmotors/view/vehicle-delete.php';
+        exit;
+        break;
+    
+    case 'deleteVehicle':
+        // Filter and store the data
+        $invId = filter_input(INPUT_POST, 'invId', FILTER_SANITIZE_NUMBER_INT);
+
+        $invMake = trim(filter_input(INPUT_POST, 'invMake', FILTER_SANITIZE_STRING));
+        $invModel = trim(filter_input(INPUT_POST, 'invModel', FILTER_SANITIZE_STRING));
+        
+        // $updateResult = NULL;
+        // Send the data to the model
+        $deleteResult = deleteVehicle($invId);
+        // Check the result
+        if($deleteResult){
+            $message = "<p>Deletion of <b>'$invMake $invModel'</b> was successful.</p>";
+            //we will use the session to store the message, use a header function to return to the controller, and then have the controller deliver the view and display the message. 
+            $_SESSION['message'] = $message;
+            header('location: /phpmotors/vehicles');
+            // include $_SERVER['DOCUMENT_ROOT'] .'/phpmotors/view/vehicle-man.php';
+            exit;
+        }else{
+            $message = "<p>Deletion of <b>'$invMake $invModel'</b> failed.</p>";
+            //we will use the session to store the message, use a header function to return to the controller, and then have the controller deliver the view and display the message.
+            $_SESSION['message'] = $message;
+            header('location: /phpmotors/vehicles');
+            // include $_SERVER['DOCUMENT_ROOT'] .'/phpmotors/view/vehicle-man.php';
+            exit;
+        }
+
+
+        break;
     default:
         $classificationList = buildClassificationList($classifications);
 
