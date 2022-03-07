@@ -189,7 +189,6 @@ switch ($action) {
         // Filter and store the data
         $clientId = filter_input(INPUT_POST, 'clientId', FILTER_SANITIZE_NUMBER_INT);
         $clientInfo = getClientInfo($clientId);
-
         $clientFirstname = trim(filter_input(INPUT_POST, 'clientFirstname', FILTER_SANITIZE_STRING));
         $clientLastname = trim(filter_input(INPUT_POST, 'clientLastname', FILTER_SANITIZE_STRING));
         $clientEmail = trim(filter_input(INPUT_POST, 'clientEmail', FILTER_SANITIZE_EMAIL));
@@ -204,11 +203,7 @@ switch ($action) {
                 include '../view/client-update.php';
                 exit;
             }
-        }
-
-        // $message = '<p class="notice">" $clientEmail"</p>';
-        // include '../view/client-update.php';
-        
+        }        
 
         // Check for missing data
         if(empty($clientFirstname) || empty($clientLastname) || empty($clientEmail)) {
@@ -227,27 +222,9 @@ switch ($action) {
             exit;
         } else {
             $message = "<p>Sorry $clientFirstname, but the update failed. Please try again.</p>";
-            // $message = "<p>CFN '$clientFirstname', CLN '$clientLastname', CE '$clientEmail', clientId: '$clientId',  NEW STUFF</p>";
             include $_SERVER['DOCUMENT_ROOT'] .'/phpmotors/view/client-update.php';
             exit;
         }
-
-        // // Hash the checked password
-        // $hashedPassword = password_hash($clientPassword, PASSWORD_DEFAULT);
-        // // Send the data to the model
-        // $regOutcome = regClient($clientFirstname, $clientLastname, $clientEmail, $hashedPassword);
-        // // Check and report the result
-        // if($regOutcome === 1){
-        //     setcookie('firstname', $clientFirstname, strtotime('+1 year'), '/');
-        //     $_SESSION['message'] = "Thanks for registering $clientFirstname. Please use your email and password to login.";
-        //     header('Location: /phpmotors/accounts/?action=login');
-        //     // include $_SERVER['DOCUMENT_ROOT'] .'/phpmotors/view/login.php';
-        //     exit;
-        // } else {
-        //     $message = "<p>Sorry $clientFirstname, but the registration failed. Please try again.</p>";
-        //     include $_SERVER['DOCUMENT_ROOT'] .'/phpmotors/view/registration.php';
-        //     exit;
-        // }
         break;
 
     case 'updatePassword':
