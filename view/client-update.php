@@ -27,7 +27,7 @@
         ?>
         <br>            
         <p>Update Account</p><br>
-        <form action="/phpmotors/accounts/index.php" method="post">
+        <form action="/phpmotors/accounts/" method="post">
             <label for="clientFirstname">First Name</label><br>
             <input name='clientFirstname' id='clientFirstname' type="text" required autofocus 
                 <?php if(isset($clientFirstname)){echo "value='$clientFirstname'";} elseif(isset($clientInfo['clientFirstname'])) {echo "value='$clientInfo[clientFirstname]'"; }?>><br>
@@ -58,10 +58,12 @@
         </form>
 
 
-        <form action="/phpmotors/accounts/index.php" method="post">
+        <form action="/phpmotors/accounts/" method="post">
             <label for="clientPassword">Password Change</label><br>
             <span>Password must be at least 8 characters long and contain at least 1 number, 1 capital letter and 1 symbol</span><br>
             <input name='clientPassword' id='clientPassword' type="password" required pattern="(?=^.{8,}$)(?=.*\d)(?=.*\W+)(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$"><br>
+
+
             
             <input type="submit" name="submit" class="submit-btn" value="Update Password">
             <input type="hidden" name="clientId" value="

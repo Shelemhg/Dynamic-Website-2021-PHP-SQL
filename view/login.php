@@ -10,6 +10,9 @@
             if (isset($_SESSION['message'])) {
                 echo $_SESSION['message'];
                }
+            if(isset($message)){
+                echo $message;
+            }
             ?>
             <form method="post" action="/phpmotors/accounts/">
                 <label for="clientEmail">Email</label><br>

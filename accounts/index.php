@@ -78,13 +78,15 @@ switch ($action) {
         // Compare the password just submitted against
         // the hashed password for the matching client
         $hashCheck = password_verify($clientPassword, $clientData['clientPassword']);
+        
         // If the hashes don't match create an error
         // and return to the login view
-        if(!$hashCheck) {
+        if(!$hashCheck){
             $pageTitle = 'Login';
-            $message = '<p class="notice">Please check your password and try again.</p>';
+            // $message = '<p class="notice">Please check your password and try again.</p>';
+            $message = "<p>NO MATCH '$clientEmail' , '$clientPassword', pwd </p>";
             include '../view/login.php';
-        exit;
+            exit;
         }
         // A valid user exists, log them in
         $_SESSION['loggedin'] = TRUE;
@@ -99,6 +101,7 @@ switch ($action) {
                                     Welcome {$clientData['clientFirstname']}
                                 </a>";
         // Send them to the admin view
+        $message = "<p>MATCH '$clientEmail' , '$clientPassword'</p>";
         include '../view/admin.php';
         exit;
         break;
@@ -247,7 +250,7 @@ switch ($action) {
         // Filter and store the data
         $clientId = filter_input(INPUT_POST, 'clientId', FILTER_SANITIZE_NUMBER_INT);
 
-        $clientPassword = trim(filter_input(INPUT_POST, 'clientPassword', FILTER_SANITIZE_STRING));
+        $clientPassword = filter_input(INPUT_POST, 'clientPassword', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
         $checkPassword = checkPassword($clientPassword);
             
 
