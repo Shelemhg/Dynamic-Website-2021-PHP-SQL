@@ -23,7 +23,7 @@ $classifications = getClassifications();
 
 $pageTitle = 'Vehicles';
 //  Builds the navbar 
-$navList = getNav();
+$navList = buildNav();
 
 
 
@@ -103,7 +103,7 @@ switch ($action) {
         if($regOutcome === 1){
             // $message = "<p>Register of $invModel successful.</p>";
             $message = "";
-            $navList = getNav();
+            $navList = buildNav();
             // include $_SERVER['DOCUMENT_ROOT'] .'/phpmotors/view/add-classification.php';
             include $_SERVER['DOCUMENT_ROOT'] .'/phpmotors/view/vehicle-man.php';
             exit;

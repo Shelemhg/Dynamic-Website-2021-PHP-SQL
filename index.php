@@ -18,7 +18,7 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/phpmotors/library/functions.php';
 
 $pageTitle = 'Welcome to PHP Motors!';
 
-$navList = getNav();
+$navList = buildNav();
 
 
 
