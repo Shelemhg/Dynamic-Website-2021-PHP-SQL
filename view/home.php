@@ -13,7 +13,7 @@
                     <p>Fuzzy dice!</p>                                    
                 </div>
                 <div class="delorean-wrapper">
-                    <img src="/phpmotors/images/delorean.jpg" class="delorean-img"alt="">
+                    <img src="/phpmotors/images/vehicles/delorean.jpg" class="delorean-img"alt="">
                 </div>
                 <div class="btn-wrapper">
                     <button class="own-btn">Own Today</button> 
@@ -66,5 +66,6 @@
                     </div>
                 </div>
             </section>
+            <a href=""></a>
   
 <?php include $_SERVER['DOCUMENT_ROOT'] . '/phpmotors/common/footer.php'; ?>   
