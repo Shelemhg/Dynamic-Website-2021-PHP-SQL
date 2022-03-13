@@ -24,10 +24,10 @@ function buildNav(){
     // Build a navigation bar using the $classifications array
     $navList = '<ul>';
     // $navList .= '<button onclick="toggleMenu()">&#9776;</button>';
-    $navList .= "<li><a href='/phpmotors/index.php' title='View the PHP Motors home page' class='horizontal-padding'>Home</a></li>";
+    $navList .= "<li><a href='/phpmotors/' title='View the PHP Motors home page' class='horizontal-padding'>Home</a></li>";
 
     foreach ($classifications as $classification) {
-        $navList .= "<li><a href='/phpmotors/index.php?action=".urlencode($classification['classificationName'])."' title='View our $classification[classificationName] product line' class='horizontal-padding'>$classification[classificationName]</a></li>";
+        $navList .= "<li><a href='/phpmotors/vehicles/?action=classification&classificationName=".urlencode($classification['classificationName'])."' title='View our $classification[classificationName] product line' class='horizontal-padding'>$classification[classificationName]</a></li>";
     }
     $navList .= '</ul>';
     
@@ -206,5 +206,22 @@ function resizeImage($old_image_path, $new_image_path, $max_width, $max_height) 
      // Free any memory associated with the old image
      imagedestroy($old_image);
    } // ends resizeImage function
+
+
+function buildVehiclesDisplay($vehicles){
+    $dv = '<ul id="inv-display" class="space2">';
+    foreach ($vehicles as $vehicle) {
+     $dv .= '<li class="space">';
+     $dv .= "<img src='/phpmotors$vehicle[invThumbnail]' alt='Image of $vehicle[invMake] $vehicle[invModel] on phpmotors.com'>";
+     $dv .= '<hr>';
+     $dv .= "<h2>$vehicle[invMake] $vehicle[invModel]</h2>";
+     $dv .= "<span class='bottom-margin'>$$vehicle[invPrice]</span>";
+     $dv .= '</li>';
+    }
+    $dv .= '</ul>';
+    return $dv;
+}
+
+
 
 ?>
