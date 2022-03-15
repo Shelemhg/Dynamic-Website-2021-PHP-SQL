@@ -222,7 +222,7 @@ function buildVehiclesDisplay($vehicles){
 
 function buildVehicleInfo($vehicle){
     $vp = "<hr><div id='vehicle-wrapper' class='space'>";
-    $vp .= "<div id='vehicle-img'><img src=/phpmotors/$vehicle[invImage]></div>";
+    $vp .= "<div id='vehicle-img'><img src=/phpmotors/$vehicle[invImage] class='vehicle-img'></div>";
     $vp .= "<div id='info-wrapper'>";
     $vp .= "<div><h1>$vehicle[invMake] $vehicle[invModel]</h1></div>";
     $vp .= "<div id='vehicle-paragraph'><p class='grey padding'>$vehicle[invDescription]</p>";
