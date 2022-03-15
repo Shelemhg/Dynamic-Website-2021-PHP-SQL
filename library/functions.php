@@ -211,7 +211,7 @@ function buildVehiclesDisplay($vehicles){
         $cost = '$' . number_format($vehicle['invPrice'], 2);
         $dv .= '<li class="space">';
         $dv .= "<a href='/phpmotors/vehicles/?action=vehicleInfo&invId=$vehicle[invId]&classificationId=$vehicle[classificationId]'>";
-        $dv .= "<img src='/phpmotors$vehicle[invThumbnail]' alt='Image of $vehicle[invMake] $vehicle[invModel] on phpmotors.com'>";
+        $dv .= "<img class='vehicle-img' src='/phpmotors$vehicle[invThumbnail]' alt='Image of $vehicle[invMake] $vehicle[invModel] on phpmotors.com'>";
         $dv .= '<hr>';
         $dv .= "<div class='center'><h2>$vehicle[invMake] $vehicle[invModel]</h2>";
         $dv .= "<span class='bottom-margin'>$cost</span></a></div>";
