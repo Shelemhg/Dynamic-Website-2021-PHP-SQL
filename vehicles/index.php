@@ -242,7 +242,7 @@ switch ($action) {
             unset($_SESSION['message']);
             $vehicle = getInvItemInfo($invId);
             $vehicleDisplay = buildVehicleInfo($vehicle);
-            include $_SERVER['DOCUMENT_ROOT'] .'/phpmotors/view/classification.php';
+            include $_SERVER['DOCUMENT_ROOT'] .'/phpmotors/view/vehicle-detail.php';
         }
         
 

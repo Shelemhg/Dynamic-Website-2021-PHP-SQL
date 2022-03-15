@@ -1,5 +1,5 @@
 </main>
-        <hr>
+        <hr class="space-top">
         <footer>
             <p>
                 &copy; PHP Motors, All rights reserved

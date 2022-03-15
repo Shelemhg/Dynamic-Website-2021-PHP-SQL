@@ -208,12 +208,13 @@ function resizeImage($old_image_path, $new_image_path, $max_width, $max_height) 
 function buildVehiclesDisplay($vehicles){
     $dv = '<ul id="inv-display" class="space2">';
     foreach ($vehicles as $vehicle) {
+        $cost = '$' . number_format($vehicle['invPrice'], 2);
         $dv .= '<li class="space">';
         $dv .= "<a href='/phpmotors/vehicles/?action=vehicleInfo&invId=$vehicle[invId]&classificationId=$vehicle[classificationId]'>";
         $dv .= "<img src='/phpmotors$vehicle[invThumbnail]' alt='Image of $vehicle[invMake] $vehicle[invModel] on phpmotors.com'>";
         $dv .= '<hr>';
-        $dv .= "<h2>$vehicle[invMake] $vehicle[invModel]</h2>";
-        $dv .= "<span class='bottom-margin'>$$vehicle[invPrice]</span></a>";
+        $dv .= "<div class='center'><h2>$vehicle[invMake] $vehicle[invModel]</h2>";
+        $dv .= "<span class='bottom-margin'>$cost</span></a></div>";
         $dv .= '</li>';
     }
     $dv .= '</ul>';
@@ -221,14 +222,14 @@ function buildVehiclesDisplay($vehicles){
 }
 
 function buildVehicleInfo($vehicle){
-    $vp = "<hr><div id='vehicle-wrapper' class='space'>";
-    $vp .= "<div id='vehicle-img'><img src=/phpmotors/$vehicle[invImage] class='vehicle-img'></div>";
+    $cost = '$' . number_format($vehicle['invPrice'], 2);
+    $vp = "<div id='vehicle-wrapper' class='space'>";
+    $vp .= "<div id='vehicle-img'><img src=/phpmotors/$vehicle[invImage] class='vehicle-img' alt='Image of $vehicle[invMake] $vehicle[invModel] on phpmotors.com'></div>";
     $vp .= "<div id='info-wrapper'>";
-    $vp .= "<div><h1>$vehicle[invMake] $vehicle[invModel]</h1></div>";
     $vp .= "<div id='vehicle-paragraph'><p class='grey padding'>$vehicle[invDescription]</p>";
     $vp .= "<p class='light-grey padding'><b>Color:</b> $vehicle[invColor]</p>";
     $vp .= "<p class='grey padding'><b>Num. in stock:</b> $vehicle[invStock]</p>";
-    $vp .= "<p class='light-grey padding'><b>Price:</b> $vehicle[invPrice]</p></div></div></div>";
+    $vp .= "<p class='light-grey padding'><b>Price:</b> $cost</p></div></div></div>";
 
 
 
