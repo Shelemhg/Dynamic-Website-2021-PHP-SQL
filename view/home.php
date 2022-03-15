@@ -66,6 +66,5 @@
                     </div>
                 </div>
             </section>
-            <a href=""></a>
   
 <?php include $_SERVER['DOCUMENT_ROOT'] . '/phpmotors/common/footer.php'; ?>   

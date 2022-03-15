@@ -1,7 +1,5 @@
 <?php
-
 //Register a new Classification
-
 function addClassification($classificationName){
     // Create a connection object using the phpmotors connection function
     $db = phpmotorsConnect();
@@ -117,7 +115,6 @@ function updateVehicle($invMake, $invModel, $invDescription, $invImage, $invThum
     return $rowsChanged;
 }
 
-
 //  Delete a vehicle from the Database
 function deleteVehicle($invId){
     // Create a connection object using the phpmotors connection function
@@ -140,7 +137,6 @@ function deleteVehicle($invId){
     return $rowsChanged;
 }
 
-
 // Get information for all vehicles
 function getVehicles(){
 	$db = phpmotorsConnect();
@@ -152,9 +148,7 @@ function getVehicles(){
 	return $invInfo;
 }
 
-
 // Get a list of vehicles based on a classification
-
 function getVehiclesByClassification($classificationName){
     $db = phpmotorsConnect();
     $sql = 'SELECT * FROM inventory WHERE classificationId IN (SELECT classificationId FROM carclassification WHERE classificationName = :classificationName)';

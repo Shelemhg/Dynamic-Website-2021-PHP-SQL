@@ -49,7 +49,6 @@ function buildClassificationList($classifications){
     return $classificationList; 
 }
 
-
 /* * ********************************
 *  Functions for working with images
 * ********************************* */
@@ -131,7 +130,6 @@ function processImage($dir, $filename) {
     resizeImage($image_path, $image_path, 500, 500);
 }
 
-
 // Checks and Resizes image
 function resizeImage($old_image_path, $new_image_path, $max_width, $max_height) {
      
@@ -211,12 +209,13 @@ function resizeImage($old_image_path, $new_image_path, $max_width, $max_height) 
 function buildVehiclesDisplay($vehicles){
     $dv = '<ul id="inv-display" class="space2">';
     foreach ($vehicles as $vehicle) {
-     $dv .= '<li class="space">';
-     $dv .= "<img src='/phpmotors$vehicle[invThumbnail]' alt='Image of $vehicle[invMake] $vehicle[invModel] on phpmotors.com'>";
-     $dv .= '<hr>';
-     $dv .= "<h2>$vehicle[invMake] $vehicle[invModel]</h2>";
-     $dv .= "<span class='bottom-margin'>$$vehicle[invPrice]</span>";
-     $dv .= '</li>';
+        $dv .= '<li class="space">';
+        $dv .= "<a href='/phpmotors/vehicles/?action=vehicleInfo&invId=$vehicle[invId]&classificationId=$vehicle[classificationId]'>";
+        $dv .= "<img src='/phpmotors$vehicle[invThumbnail]' alt='Image of $vehicle[invMake] $vehicle[invModel] on phpmotors.com'>";
+        $dv .= '<hr>';
+        $dv .= "<h2>$vehicle[invMake] $vehicle[invModel]</h2>";
+        $dv .= "<span class='bottom-margin'>$$vehicle[invPrice]</span></a>";
+        $dv .= '</li>';
     }
     $dv .= '</ul>';
     return $dv;

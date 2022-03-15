@@ -1,8 +1,5 @@
 <?php
-
 //VEHICLES CONTROLLER
-
-
 
 //Create or access a Session
 // session_start();
@@ -25,8 +22,6 @@ $pageTitle = 'Vehicles';
 //  Builds the navbar 
 $navList = buildNav();
 
-
-
 // //  Builds the Select List for the Drop down menu of classificaitons
 // $classificationsList = '';
 // $getClassifications = getClassifications();
@@ -34,8 +29,6 @@ $navList = buildNav();
 // foreach ($getClassifications as $classId) {
 //     $classificationsList .= "<option value='$classId[classificationId]'>$classId[classificationName]</option>";
 // }
-
-
 
 $action = filter_input(INPUT_POST, 'action');
 
@@ -236,6 +229,20 @@ switch ($action) {
         $pageTitle = $classificationName . ' vehicles | PHP Motors, Inc.';
         include $_SERVER['DOCUMENT_ROOT'] .'/phpmotors/view/classification.php';
         break;
+    case 'vehicleInfo':
+        $invId = filter_input(INPUT_GET, 'invId', FILTER_VALIDATE_INT);
+
+        if(empty($invId)){
+            $message = '<p>ERROR - Unable to find the Vehicle. Please try again.</p>';
+            $_SESSION['message'] = $message;
+            // $message = "<p>Classification ID = $classificationId </p>";
+            buildNav();
+            include $_SERVER['DOCUMENT_ROOT'] .'/phpmotors/index.php';
+            exit; 
+        }
+        include $_SERVER['DOCUMENT_ROOT'] .'/phpmotors/view/classification.php';
+        break;
+
 
     default:
         $classificationList = buildClassificationList($classifications);
