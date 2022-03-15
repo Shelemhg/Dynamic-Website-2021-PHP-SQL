@@ -67,4 +67,21 @@
                 </div>
             </section>
   
+
+            <hr>
+            <div id='vehicle-wrapper' class='space'>
+                <div id='vehicle-img'>
+                    <img src=/phpmotors/$vehicle[invImage]>
+                </div>
+                <div id='info-wrapper'>
+                    <div>
+                        <h1>$vehicle[invMake] $vehicle[invModel]</h1>
+                    </div>
+                    <div>
+                        <br><p class='grey padding'>$vehicle[invDescription]</p>
+                        <p class='light-grey padding'><b>Color:</b> $vehicle[invColor]</p>
+                        <p class='grey padding'><b>Num. in stock:</b> $vehicle[invStock]</p>
+                        <p class='light-grey padding'><b>Price:</b> $vehicle[invPrice]</p>
+                    </div>
+                </div>
 <?php include $_SERVER['DOCUMENT_ROOT'] . '/phpmotors/common/footer.php'; ?>   

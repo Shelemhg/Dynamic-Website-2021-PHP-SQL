@@ -1,10 +1,8 @@
 <?php
-
 function checkEmail($clientEmail){
     $valEmail = filter_var($clientEmail, FILTER_VALIDATE_EMAIL);
     return $valEmail;
 }
-
 
 //  Check the password for a minimum of 8 charactersl
 //  at least 1 capital letter, at least 1 number and 
@@ -206,6 +204,7 @@ function resizeImage($old_image_path, $new_image_path, $max_width, $max_height) 
    } // ends resizeImage function
 
 
+
 function buildVehiclesDisplay($vehicles){
     $dv = '<ul id="inv-display" class="space2">';
     foreach ($vehicles as $vehicle) {
@@ -221,6 +220,20 @@ function buildVehiclesDisplay($vehicles){
     return $dv;
 }
 
+function buildVehicleInfo($vehicle){
+    $vp = "<hr><div id='vehicle-wrapper' class='space'>";
+    $vp .= "<div id='vehicle-img'><img src=/phpmotors/$vehicle[invImage]></div>";
+    $vp .= "<div id='info-wrapper'>";
+    $vp .= "<div><h1>$vehicle[invMake] $vehicle[invModel]</h1></div>";
+    $vp .= "<div id='vehicle-paragraph'><p class='grey padding'>$vehicle[invDescription]</p>";
+    $vp .= "<p class='light-grey padding'><b>Color:</b> $vehicle[invColor]</p>";
+    $vp .= "<p class='grey padding'><b>Num. in stock:</b> $vehicle[invStock]</p>";
+    $vp .= "<p class='light-grey padding'><b>Price:</b> $vehicle[invPrice]</p></div></div></div>";
+
+
+
+    return $vp;
+}
 
 
 ?>

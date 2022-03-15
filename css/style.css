@@ -228,8 +228,38 @@ label {
 .extra-padding {
     padding: 0 1.5rem;
 }
+.grey{
+    background: rgb(230, 230, 230);
+}
+.light-grey{
+    background-color: rgb(243, 243, 243);
+}
+.padding{
+    padding: 1rem;
+    margin: 0;
+}
 
+#vehicle-wrapper{
+    display: block;
+}
+#info-wrapper{    
+    max-width: 95%;
+}
+img{
+    max-width: 95%;
+}
 
+@media(min-width: 1200px){
+    #vehicle-wrapper{
+        display: flex;
+    }
+    #info-wrapper{    
+        max-width: 30%;
+    }
+    img{
+        max-width: 90%;
+    }
+}
 
 
 

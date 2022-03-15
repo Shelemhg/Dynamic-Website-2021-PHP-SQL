@@ -225,29 +225,33 @@ switch ($action) {
         }
         // echo $vehicleDisplay;
         // exit;
-
         $pageTitle = $classificationName . ' vehicles | PHP Motors, Inc.';
         include $_SERVER['DOCUMENT_ROOT'] .'/phpmotors/view/classification.php';
         break;
+
     case 'vehicleInfo':
         $invId = filter_input(INPUT_GET, 'invId', FILTER_VALIDATE_INT);
 
         if(empty($invId)){
             $message = '<p>ERROR - Unable to find the Vehicle. Please try again.</p>';
             $_SESSION['message'] = $message;
-            // $message = "<p>Classification ID = $classificationId </p>";
             buildNav();
             include $_SERVER['DOCUMENT_ROOT'] .'/phpmotors/index.php';
             exit; 
+        }else{
+            unset($_SESSION['message']);
+            $vehicle = getInvItemInfo($invId);
+            $vehicleDisplay = buildVehicleInfo($vehicle);
+            include $_SERVER['DOCUMENT_ROOT'] .'/phpmotors/view/classification.php';
         }
-        include $_SERVER['DOCUMENT_ROOT'] .'/phpmotors/view/classification.php';
+        
+
+        
         break;
 
 
     default:
         $classificationList = buildClassificationList($classifications);
-
-
         include $_SERVER['DOCUMENT_ROOT'] .'/phpmotors/view/vehicle-man.php';
         break;
 }
