@@ -2,16 +2,16 @@
     //Check if there is an open session, otherwise return the user to home
     if(!isset($_SESSION['loggedin'])){
         // do something here if the value is FALSE
-        header('Location: /phpmotors/index.php');
+        // header('Location: /phpmotors/index.php');
     }else{
         if (isset($_SESSION['message'])) {
             $message = $_SESSION['message'];
            }
         //Check if the user has the right priviledges, otherwise return the user to home
-        if($_SESSION['clientData']['clientLevel'] < 2){
-            header('Location: /phpmotors/index.php');
-            exit;
-        }
+        // if($_SESSION['clientData']['clientLevel'] < 2){
+        //     header('Location: /phpmotors/index.php');
+        //     exit;
+        // }
     }
 ?>
 <?php
@@ -57,7 +57,7 @@ $classificationsList .= "</select><br>"
                     </fieldset>
                 <label>Upload Image:</label>
                 <input type="file" name="file1">
-                <input type="submit" class="regbtn" value="Upload">
+                <input type="submit" class="regbtn padding" value="Upload">
                 <input type="hidden" name="action" value="upload">
             </form>
             <hr>
@@ -65,7 +65,7 @@ $classificationsList .= "</select><br>"
             <p class="notice">If deleting an image, delete the thumbnail too and vice versa.</p>
             <?php
             if (isset($imageDisplay)) {
-            echo $imageDisplay;
+                echo $imageDisplay;
             } ?>
         </div>
     </section>

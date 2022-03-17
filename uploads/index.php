@@ -1,8 +1,11 @@
 <?php
 // Image upload controller
 
-
-session_start();
+//Create or access a Session
+// session_start();
+if(!isset($_SESSION)){ 
+    session_start(); 
+} 
 
 require_once '../library/connections.php';
 require_once '../model/main-model.php';
@@ -17,7 +20,7 @@ $navList = buildNav();
 
 $action = filter_input(INPUT_POST, 'action', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 if ($action == NULL) {
- $action = filter_input(INPUT_GET, 'action', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+    $action = filter_input(INPUT_GET, 'action', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 }
 
 /* * ****************************************************
@@ -114,7 +117,7 @@ switch ($action) {
         // Build a select list of vehicle information for the view
         $prodSelect = buildVehiclesSelect($vehicles);
             
-        include '../view/image-admin.php';
+        include $_SERVER['DOCUMENT_ROOT'] . '/phpmotors/view/image-admin.php';
         exit;
         break;
    }
