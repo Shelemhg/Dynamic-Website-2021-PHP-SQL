@@ -33,12 +33,12 @@ $classificationsList .= "</select><br>"
 ?><?php include $_SERVER['DOCUMENT_ROOT'] . '/phpmotors/common/header.php'; ?>
     <section>
         <div>
-            <h1 class="large">Add Vehicle</h1>
+            <h1 class="large">Image Administration</h1>
         </div>
     </section>
     <section>
         <div class="wrapper space">
-            <h2>Add New Vehicle Image</h2>
+            <h2>Add New Vehicle Image</h2><hr>
             <?php
                 if (isset($message)) {
                     echo $message;
@@ -57,11 +57,10 @@ $classificationsList .= "</select><br>"
                     </fieldset>
                 <label>Upload Image:</label>
                 <input type="file" name="file1">
-                <input type="submit" class="regbtn padding" value="Upload">
+                <input type="submit" class="regbtn" value="Upload">
                 <input type="hidden" name="action" value="upload">
             </form>
-            <hr>
-            <h2>Existing Images</h2>
+            <h2>Existing Images</h2><hr>
             <p class="notice">If deleting an image, delete the thumbnail too and vice versa.</p>
             <?php
             if (isset($imageDisplay)) {

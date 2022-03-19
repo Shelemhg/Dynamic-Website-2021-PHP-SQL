@@ -73,7 +73,7 @@ $classificationsList .= "</select><br>"
                         echo $message;
                     }
                 ?>
-                <input type="submit" name="submit" class="extra-padding" value="Add Vehicle">
+                <input type="submit" name="submit" class="padding-vertical padding-horizontal" value="Add Vehicle">
                 <!-- Add the action name - value pair -->
                 <input type="hidden" name="action" value="add-vehicle">
             </form>

@@ -66,4 +66,19 @@ function checkExistingImage($imgName){
     return $imageMatch;
 }
 
+
+//  Get thumbnail image path
+function getThumbnailsPath($invId){
+    $db = phpmotorsConnect();
+    // $sql = "SELECT imgPath FROM images WHERE invId = :invId AND imgPath LIKE '%-tn.%' AND imgPrimary = 0";
+    $sql = "SELECT imgPath FROM images WHERE invId = :invId AND imgPath LIKE '%-tn.%' AND imgPrimary = 0";
+    $stmt = $db->prepare($sql);
+    $stmt->bindValue(':invId', $invId, PDO::PARAM_STR);
+    $stmt->execute();
+    $thumbnails = $stmt->fetchAll();
+    $stmt->closeCursor();
+    return $thumbnails;
+}
+
+
 ?>

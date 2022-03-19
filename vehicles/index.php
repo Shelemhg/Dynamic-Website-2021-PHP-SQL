@@ -14,6 +14,8 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/phpmotors/model/main-model.php';
 require_once $_SERVER['DOCUMENT_ROOT'] . '/phpmotors/model/vehicles-model.php';
 // Get the functions library
 require_once $_SERVER['DOCUMENT_ROOT'] . '/phpmotors/library/functions.php';
+// Get the VEHICLES model
+require_once $_SERVER['DOCUMENT_ROOT'] . '/phpmotors/model/uploads-model.php';
 
 //  Gets the classification Array
 $classifications = getClassifications();
@@ -240,13 +242,12 @@ switch ($action) {
             exit; 
         }else{
             unset($_SESSION['message']);
+            $thumbnailsPath = getThumbnailsPath($invId);
+            $thumbnailsDisplay = buildThumbnailsDisplay($thumbnailsPath);
             $vehicle = getInvItemInfo($invId);
             $vehicleDisplay = buildVehicleInfo($vehicle);
             include $_SERVER['DOCUMENT_ROOT'] .'/phpmotors/view/vehicle-detail.php';
         }
-        
-
-        
         break;
 
 

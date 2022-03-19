@@ -113,6 +113,15 @@ h2 {
 h3 {
     margin-left: 1rem;
 }
+h4{
+    font-size: 1.2rem;
+}
+.no-decoration{
+    text-decoration: none;
+}
+.black-txt{
+    color: black;
+}
 
 input:required:invalid {
     border:1px solid red;
@@ -181,42 +190,6 @@ justify-content: center;
     background-color: #4c96d7;
     margin: 1rem;
 }
-    
-
-
-.img-wrapper img {
-    max-width: 100%;
-    max-height: 100%;
-}
-.img-mini{
-    max-width: 200px;
-    /* height: 200px; */
-}
-.vehicle-wrapper{
-    height: 220px;
-    width: 200px;
-    text-align:center;
-    align-content: center;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    margin: 2rem;
-}
-.vehicle-wrapper p{
-    align-items: flex-end;
-    margin-top: auto;
-    height: 10px;
-
-    word-break: break-all;
-    white-space: normal;
-}
-#image-display{
-    display: flex;
-    flex-wrap: wrap;
-    max-width: 100%;
-}
-
 
 .space-top {
     margin-top: 2rem;
@@ -255,8 +228,21 @@ label {
     margin:  2rem 0 ;
 }
 
-.extra-padding {
-    padding: 0 1.5rem;
+.padding-horizontal {
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+}
+.padding-vertical{
+    padding-top: 1.5rem;
+    padding-bottom: 1.5rem;
+}
+.regbtn{
+    padding: .8rem;
+    margin: .8rem;
+}
+.upload-btn{
+    padding: 1.5rem;
+    margin: 1rem;
 }
 .grey{
     background: rgb(230, 230, 230);
@@ -269,12 +255,7 @@ label {
     margin: 0;
 }
 
-#vehicle-wrapper{
-    display: block;
-}
-#info-wrapper{    
-    max-width: 95%;
-}
+
 .vehicle-img{
     max-width: 95%;
 }
@@ -290,32 +271,117 @@ label {
     margin: auto;
 }
 
-@media(min-width: 1200px){
-    #vehicle-wrapper{
-        display: flex;
-    }
-    #info-wrapper{    
-        max-width: 30%;
-    }
-    img{
-        max-width: 90%;
-    }
+
+
+
+
+.img-wrapper img {
+    max-width: 100%;
+    max-height: 100%;
 }
+.img-mini{
+    max-width: 200px;
+    /* height: 200px; */
+}
+.vehicle-img-wrapper{
+    height: 220px;
+    width: 200px;
+    text-align:center;
+    align-content: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 2rem;
+    word-break: break-all;
+    white-space: normal;
+}
+
+.delete-text{
+    color: rgb(192, 0, 0);
+    text-decoration: none;
+  }
+  .delete-text:hover{
+    color: rgb(255, 0, 0);
+    text-decoration: underline dotted;
+  }
+.image-display{
+    display: flex;
+    flex-wrap: wrap;
+    max-width: 100%;
+}
+
+
+
+.vehicle-images-display{
+    display: block;
+    /* flex-direction: row; */
+}
+.thumbnails-wrapper{
+    display: flex;
+    flex-direction: row;
+    flex-direction: space;
+    justify-content: space-evenly;
+}
+.thumbnail-title{
+    /* visibility: visible; */
+    display: unset;
+    
+    margin: 2rem;
+}
+
+
+
+
+
+
 
 ul{
     max-width: 100%;
 }
 
 
-@media (min-width: 800px){
-    
-    ul a{
-        font-size: 1.5rem;
-    }
-}
+
 
 
 @media (min-width: 700px){
+    
+    .thumbnail-image{
+        transition: transform 0.3s ease-in-out;
+    }
+    .thumbnail-image:hover{
+        transform: scale(150%) translate(25%, 25%);
+    }
+
+
+    .thumbnails-wrapper{
+        align-items: flex-start;
+        justify-content: unset;
+    }
+    .vehicle-images-display{
+        display: grid;
+        grid-template-columns: 1fr 3fr;
+        /* flex-direction: row; */
+    }
+    .thumbnails-wrapper{
+        grid-column: 1/2;
+        grid-row: 1/2;
+        display: flex;
+        flex-direction: column;
+        margin-left: 1rem;
+        /* justify-content: space-evenly; */
+        /* align-items: center; */
+    }
+    #vehicle-img{
+        grid-column: 2/3;
+        grid-row: 1/2;
+    }
+    .thumbnail-title{
+        /* visibility: hidden; */
+        display: none;
+    }
+
+
     ul{
         max-width: 100%;
     }
@@ -344,7 +410,7 @@ ul{
         /* margin: 1rem; */
     }
     h2 {
-      
+      margin: 1rem 0;
       font-size: 1.5rem;
     }
     h3 {
@@ -384,6 +450,7 @@ ul{
         position: absolute;
         top: 350px;
         margin-left: 1rem;
+        margin-top: 1rem;
     }
 
 
@@ -412,3 +479,24 @@ ul{
 	}
 
 } 
+@media (min-width: 800px){
+    
+    ul a{
+        font-size: 1.5rem;
+    }
+}
+@media(min-width: 1200px){
+    #vehicle-wrapper{
+        display: flex;
+    }
+    #info-wrapper{    
+        max-width: 30%;
+    }
+    img{
+        max-width: 90%;
+    }
+    .thumbnails-wrapper{
+        justify-content: space-evenly;
+        align-items: center;
+    }
+}

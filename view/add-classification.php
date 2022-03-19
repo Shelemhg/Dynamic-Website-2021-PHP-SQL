@@ -30,7 +30,7 @@
                 <input name='classificationName' id='classificationName' type="text" required autofocus maxlength="30"
                     <?php if(isset($classificationName)){echo "value='$classificationName'";}?>>
                 <br>
-                <input type="submit" name="submit" class="extra-padding" value="Add Classification">
+                <input type="submit" name="submit" class="padding-vertical padding-horizontal" value="Add Classification">
                 <!-- Add the action name - value pair -->
                 <input type="hidden" name="action" value="add-class">
             </form>

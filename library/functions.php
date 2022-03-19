@@ -46,11 +46,12 @@ function buildClassificationList($classifications){
     $classificationList .= '</select>'; 
     return $classificationList; 
 }
-
+//  VEHICLE ALONE, Info
+//  --------------------
 function buildVehicleInfo($vehicle){
     $cost = '$' . number_format($vehicle['invPrice'], 2);
     $vp = "<div id='vehicle-wrapper' class='space'>";
-    $vp .= "<div id='vehicle-img'><img src=/phpmotors/$vehicle[invImage] class='vehicle-img' alt='Image of $vehicle[invMake] $vehicle[invModel] on phpmotors.com'></div>";
+    $vp .= "<div id='vehicle-img'><img src=$vehicle[invImage] class='vehicle-img' alt='Image of $vehicle[invMake] $vehicle[invModel] on phpmotors.com'></div>";
     $vp .= "<div id='info-wrapper'>";
     $vp .= "<div id='vehicle-paragraph'><p class='grey padding'>$vehicle[invDescription]</p>";
     $vp .= "<p class='light-grey padding'><b>Color:</b> $vehicle[invColor]</p>";
@@ -76,11 +77,11 @@ function makeThumbnailName($image) {
 
 // Build images display for image management view
 function buildImageDisplay($imageArray) {
-    $id = '<ul id="image-display">';
+    $id = '<ul class="image-display">';
     foreach ($imageArray as $image) {
-        $id .= "<li class='vehicle-wrapper'>";
+        $id .= "<li class='vehicle-img-wrapper'>";
         $id .= "<img src='$image[imgPath]' title='$image[invMake] $image[invModel] image on PHP Motors.com' alt='$image[invMake] $image[invModel] image on PHP Motors.com' class='img-mini'>";
-        $id .= "<p><a href='/phpmotors/uploads?action=delete&imgId=$image[imgId]&filename=$image[imgName]' title='Delete the image'>Delete $image[imgName]</a></p>";
+        $id .= "<p><a href='/phpmotors/uploads?action=delete&imgId=$image[imgId]&filename=$image[imgName]' title='Delete the image' class='delete-text'>DELETE- $image[imgName]</a></p>";
         $id .= '</li>';
     }
     $id .= '</ul>';
@@ -218,19 +219,34 @@ function resizeImage($old_image_path, $new_image_path, $max_width, $max_height) 
      imagedestroy($old_image);
 } // ends resizeImage function
 
-   function buildVehiclesDisplay($vehicles){
+function buildVehiclesDisplay($vehicles){
     $dv = '<ul id="inv-display" class="space2">';
     foreach ($vehicles as $vehicle) {
         $cost = '$' . number_format($vehicle['invPrice'], 2);
         $dv .= '<li class="space">';
-        $dv .= "<a href='/phpmotors/vehicles/?action=vehicleInfo&invId=$vehicle[invId]&classificationId=$vehicle[classificationId]'>";
+        $dv .= "<a href='/phpmotors/vehicles/?action=vehicleInfo&invId=$vehicle[invId]&classificationId=$vehicle[classificationId]' class='no-decoration black-txt'>";
         $dv .= "<img class='vehicle-img' src='$vehicle[invThumbnail]' alt='Image of $vehicle[invMake] $vehicle[invModel] on phpmotors.com'>";
         $dv .= '<hr>';
-        $dv .= "<div class='center'><h2>$vehicle[invMake] $vehicle[invModel]</h2>";
+        $dv .= "<div class='center'><h4>$vehicle[invMake] $vehicle[invModel]</h4>";
         $dv .= "<span class='bottom-margin'>$cost</span></a></div>";
         $dv .= '</li>';
     }
     $dv .= '</ul>';
     return $dv;
+}
+
+
+
+//  Create the Thumbnails Display
+function buildThumbnailsDisplay($thumbnailsPath){
+    
+    $td = "<h4 class='thumbnail-title'>Thumbnail Images</h4>";
+    $td .= "<div class='thumbnails-wrapper'>";
+    foreach ($thumbnailsPath as $thumbnail){
+        $td .= "<div class='thumbnail-img-wrapper'><img src='$thumbnail[imgPath]' alt='Extra vehicle image' class='thumbnail-image'></div>";
+        // $td .= "<div class='thumbnail-img-wrapper'>$thumbnail[imgPath]</div>";
+    }
+    $td .= "</div>";
+    return $td;
 }
 ?>

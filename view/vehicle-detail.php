@@ -8,8 +8,17 @@ echo " " . $vehicle['invModel'];
     if(isset($message)){
         echo $message; }
 ?>
-<?php if(isset($vehicleDisplay)){
- echo $vehicleDisplay;
-} ?>
+<div class="vehicle-images-display">
+<?php
+    // print_r($thumbnailsPath);
+    
+    if(isset($vehicleDisplay)){
+        echo $vehicleDisplay;
+    } 
+    if(isset($thumbnailsDisplay)){
+        echo $thumbnailsDisplay;
+    }
+?>
+</div>
 
 <?php include $_SERVER['DOCUMENT_ROOT'] . '/phpmotors/common/footer.php'; ?>
