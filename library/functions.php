@@ -235,8 +235,6 @@ function buildVehiclesDisplay($vehicles){
     return $dv;
 }
 
-
-
 //  Create the Thumbnails Display
 function buildThumbnailsDisplay($thumbnailsPath){
     
