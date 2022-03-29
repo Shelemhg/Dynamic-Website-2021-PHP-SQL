@@ -22,7 +22,7 @@
                     
                     <form action="/phpmotors/vehicles/index.php" method="post">
 
-                        <input type="text" placeholder="Search" name="search-query">
+                        <input type="text" placeholder="Search" name="search-query"  <?php if(isset($_SESSION['searchQuery'])){echo "value='$_SESSION[searchQuery]'";}  ?> required>
                         <input type="submit" value="Search">
                         <input type="hidden" name="action" value="search">
                         <input type="hidden" name="newSearch" value="1">

@@ -252,33 +252,22 @@ switch ($action) {
 
 
     case 'search':
-        $newSearch = trim(filter_input(INPUT_POST, 'newSearch', FILTER_VALIDATE_INT));
-        $currentPage = trim(filter_input(INPUT_POST, 'currentPage', FILTER_VALIDATE_INT));
-
-        // Filter and store the data
         
-        // unset($_SESSION['currentPage']);
-        $_SESSION['currentPage'] = $currentPage;
-
-        if(isset($newSearch) AND $newSearch == 1){
-            unset($_SESSION['searchResult']);
-            unset($_SESSION['searchQuery']);
-            unset($_SESSION['currentPage']);
-            
-            $_SESSION['searchQuery'] = trim(filter_input(INPUT_POST, 'search-query', FILTER_SANITIZE_STRING));
-            $_SESSION['currentPage'] = 1;
-            // $currentPage = 1;
-            $_SESSION['searchResult'] = searchDatabase($_SESSION['searchQuery']);
-            // print_r( $_SESSION['searchResult']);
-            // exit;
-        }
+        unset($_SESSION['searchResult']);
+        unset($_SESSION['searchQuery']);
+        unset($_SESSION['currentPage']);
+        
+        $_SESSION['searchQuery'] = trim(filter_input(INPUT_POST, 'search-query', FILTER_SANITIZE_STRING));
+        $_SESSION['currentPage'] = 1;
+        // $currentPage = 1;
+        $_SESSION['searchResult'] = searchDatabase($_SESSION['searchQuery']);
 
         // if($_SESSION['page'])
 
         
 
         if(empty($_SESSION['searchQuery'])){
-            $_SESSION['message'] = 'Must provide a search term.';
+            $_SESSION['message'] = 'Please provide a search term';
             include $_SERVER['DOCUMENT_ROOT'] .'/phpmotors/index.php';
             unset($_SESSION['message']);
             exit;
@@ -302,9 +291,24 @@ switch ($action) {
             exit;
         }
         break;
+
     case 'switch-page':
-        
+        $newSearch = trim(filter_input(INPUT_GET, 'newSearch', FILTER_VALIDATE_INT));
+        $currentPage = trim(filter_input(INPUT_GET, 'currentPage', FILTER_VALIDATE_INT));
+        // unset( $_SESSION['currentPage']);
+        $_SESSION['currentPage'] = $currentPage;
+        $totalResults = sizeof($_SESSION['searchResult']);
+        $totalPages = ceil($totalResults/10);
+
+
+        $searchDisplay = buildSearchDisplay($_SESSION['searchResult'], $totalResults, $_SESSION['currentPage'], $totalPages);
+
+        // $searchDisplay = $_SESSION['currentPage'];
+        $pageTitle = 'Search Result';
+        include $_SERVER['DOCUMENT_ROOT'] .'/phpmotors/view/search-result.php';
+
         break;
+
     default:
         $classificationList = buildClassificationList($classifications);
         include $_SERVER['DOCUMENT_ROOT'] .'/phpmotors/view/vehicle-man.php';

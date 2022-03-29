@@ -5,15 +5,12 @@
     if(isset($message)){
         echo $message; }
 ?>
-<div class="vehicle-images-display">
+<div class="search-results">
 <?php
     // print_r($thumbnailsPath);
     
     if(isset($searchDisplay)){
         echo $searchDisplay;
-        // print_r($searchDisplay);
-        // print_r($searchResult[2]['invDescription']);
-        echo "<br><br>Total Res:".  $totalResults . " Total Pages:" . $totalPages . "  Current Page:" . $_SESSION['currentPage'] . " New Search:" . $newSearch;
     }
 ?>
 </div>

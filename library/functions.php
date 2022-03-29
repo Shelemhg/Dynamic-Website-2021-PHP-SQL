@@ -250,10 +250,17 @@ function buildThumbnailsDisplay($thumbnailsPath){
 
 
 //  Creates the search results Display
-function buildSearchDisplay($searchResult, $totalResults, $currentPage, $totalPages){
-    
-    $sd = "<div>";
-    for($i = 10 - ((int)$currentPage * 10); $i < $totalResults ; $i++){
+function buildSearchDisplay($searchResult, $totalResults, $currentPage, $totalPages){    
+        //  Adds the text for the number of results found. Adds s for plural if more than 1.
+        $sd = "<h2>Found $totalResults result";
+        if($totalResults > 1){
+            $sd .= "s";
+        }
+        $sd .= " for: '$_SESSION[searchQuery]'</h2>";
+
+    //  Creates each resuls capsule iterating depending on the page received
+    for($i = ((int)$currentPage * 10) - 10; $i < $totalResults ; $i++){
+        $sd .= "<div class='search-item'>";
         $sd .= "<a href='/phpmotors/vehicles/?action=vehicleInfo&invId=";
         $sd .= $searchResult[$i]['invId'];
         $sd .= "&classificationId=";
@@ -264,13 +271,28 @@ function buildSearchDisplay($searchResult, $totalResults, $currentPage, $totalPa
 
         $sd .= "<p>";
         $sd .= $searchResult[$i]['invDescription'];
-        $sd .= "</p>";
+        $sd .= "</p></div>";
     }
-    $sd .= "</div><div>";
+    $sd .= "<div class='horizontal'>";
 
-    for($page = 1; $page <= $totalPages; $page++){
-        $sd .= "<a href='/phpmotors/vehicles/index.php?action=search&currentPage=$page&newSearch=0'> $page </a><br><br>";
+    if($currentPage > 1){
+        $sd .= "<a href='/phpmotors/vehicles/?action=switch-page&currentPage=";
+        $sd .= $currentPage - 1;
+        $sd .= "&newSearch=0'> <<< </a>";
     }
+    for($page = 1; $page <= $totalPages; $page++){
+        if($page != $currentPage){
+            $sd .= "<a href='/phpmotors/vehicles/?action=switch-page&currentPage=$page&newSearch=0'> $page </a>";
+        }else{
+            $sd .= "<p> $page </p>";
+        }
+    }
+    if($currentPage < $totalPages){
+        $sd .= "<a href='/phpmotors/vehicles/?action=switch-page&currentPage=";
+        $sd .= $currentPage + 1;
+        $sd .= "&newSearch=0'> >>> </a>";
+    }
+    
     $sd .= "</div>";
 
     return $sd;

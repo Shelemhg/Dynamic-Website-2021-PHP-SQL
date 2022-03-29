@@ -334,8 +334,25 @@ label {
     
     margin: 2rem;
 }
-
-
+.horizontal {
+    display: flex;
+    flex-direction: row;
+    margin: auto;
+}
+.horizontal > * {
+    padding: 1rem;
+    font-size: 1.5rem;
+    margin: auto;
+}
+.search-results{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    margin: auto;
+}
+.search-item{
+    margin: 1rem 2rem;
+}
 
 
 
@@ -350,7 +367,9 @@ ul{
 
 
 @media (min-width: 700px){
-    
+    .search-results{
+        max-width: 700px;
+    }
     .thumbnail-image{
         transition: transform 0.3s ease-in-out;
     }
@@ -485,12 +504,17 @@ ul{
 
 } 
 @media (min-width: 800px){
-    
+    .search-results{
+        max-width: 800px;
+    }
     ul a{
         font-size: 1.5rem;
     }
 }
 @media(min-width: 1200px){
+    .search-results{
+        max-width: 1100px;
+    }
     #vehicle-wrapper{
         display: flex;
     }
