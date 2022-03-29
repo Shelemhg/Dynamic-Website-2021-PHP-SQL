@@ -247,4 +247,43 @@ function buildThumbnailsDisplay($thumbnailsPath){
     $td .= "</div>";
     return $td;
 }
+
+
+//  Creates the search results Display
+function buildSearchDisplay($searchResult, $totalResults, $currentPage, $totalPages){
+    
+    $sd = "<div>";
+    for($i = 10 - ((int)$currentPage * 10); $i < $totalResults ; $i++){
+        $sd .= "<a href='/phpmotors/vehicles/?action=vehicleInfo&invId=";
+        $sd .= $searchResult[$i]['invId'];
+        $sd .= "&classificationId=";
+        $sd .= $searchResult[$i]['classificationId'];
+        $sd .= "'><h2>";
+        $sd .= $searchResult[$i]['invMake'] . " " . $searchResult[$i]['invModel'];
+        $sd .= "</h2></a>";
+
+        $sd .= "<p>";
+        $sd .= $searchResult[$i]['invDescription'];
+        $sd .= "</p>";
+    }
+    $sd .= "</div><div>";
+
+    for($page = 1; $page <= $totalPages; $page++){
+        $sd .= "<a href='/phpmotors/vehicles/index.php?action=search&currentPage=$page&newSearch=0'> $page </a><br><br>";
+    }
+    $sd .= "</div>";
+
+    return $sd;
+}
+
+// function buildSearchDisplay($searchResult){
+    
+//     $sd = "<div>";
+//     for($searchResult as $vehicle){
+//         $sd .= "<a href='/phpmotors/vehicles/?action=vehicleInfo&invId=$vehicle[invId]&classificationId=$vehicle[classificationId]'><h2>$vehicle[invMake] $vehicle[invModel]</h2></a>";
+//         $sd .= "<p>$vehicle[invDescription]</p>";
+//     }
+//     $sd .= "</div>";
+//     return $sd;
+// }
 ?>

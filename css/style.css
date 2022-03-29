@@ -55,9 +55,14 @@ header {
     padding-right:40px;
     display: flex;
     flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: flex-end;
 }
-.my-account-wrapper div{
-    margin: 0 3rem;
+.my-account-wrapper > *{
+    margin-left: 2rem;
+}
+.my-account-wrapper > form{
+    margin-left: 0;
 }
 #icon-img {
     max-height: 50px;

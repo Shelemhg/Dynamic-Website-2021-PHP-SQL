@@ -18,7 +18,16 @@
                 <img src="/phpmotors/images/logo.png" alt="" id="icon-img">
             </div>
             <div class="my-account-wrapper">
-                <div>
+                
+                    
+                    <form action="/phpmotors/vehicles/index.php" method="post">
+
+                        <input type="text" placeholder="Search" name="search-query">
+                        <input type="submit" value="Search">
+                        <input type="hidden" name="action" value="search">
+                        <input type="hidden" name="newSearch" value="1">
+                    </form>
+                    <div>
                     <?php 
                         // if(isset($cookieFirstname)){
                         //     echo "<span>Welcome $cookieFirstname</span>";
@@ -27,11 +36,16 @@
                             echo $_SESSION['message'];
                         }
                     ?>
-                </div>
+                    </div>
                     <?php
                         if(isset($_SESSION['loggedin'])){
+                            echo "<div class='move-end'>
+                                    <a href='/phpmotors/accounts/index.php'>
+                                       Admin
+                                    </a>
+                                </div>";
                             // do something here if the value is FALSE
-                            echo "<a href='/phpmotors/accounts/index.php?action=Logout'>
+                            echo "<a href='/phpmotors/accounts/index.php?action=Logout' class='move-end'>
                                     <p>
                                         Log Out
                                     </p>

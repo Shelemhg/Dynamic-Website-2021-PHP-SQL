@@ -100,9 +100,7 @@ switch ($action) {
         // Store the array into the session
         $_SESSION['clientData'] = $clientData;
         // Change the session message
-        $_SESSION['message'] = "<a href='/phpmotors/accounts/index.php'>
-                                    Welcome {$clientData['clientFirstname']}
-                                </a>";
+        $_SESSION['message'] = "Welcome {$clientData['clientFirstname']}";
         // Send them to the admin view
         
         include '../view/admin.php';

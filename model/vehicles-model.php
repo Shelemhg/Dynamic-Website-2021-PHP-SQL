@@ -159,3 +159,15 @@ function getVehiclesByClassification($classificationName){
     $stmt->closeCursor();
     return $vehicles;
 }
+
+// Get a list of coincidences from a search query
+function searchDatabase($searchQuery){
+    $db = phpmotorsConnect();
+    $sql = "SELECT * FROM inventory WHERE invMake LIKE CONCAT( '%', :searchQuery, '%') OR invModel LIKE CONCAT( '%', :searchQuery, '%') OR invDescription LIKE CONCAT( '%', :searchQuery, '%') OR invPrice LIKE CONCAT( '%', :searchQuery, '%') OR invColor LIKE CONCAT( '%', :searchQuery, '%') ORDER BY invId DESC";
+    $stmt = $db->prepare($sql);
+    $stmt->bindValue(':searchQuery', $searchQuery, PDO::PARAM_STR);
+    $stmt->execute();
+    $invInfo = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    $stmt->closeCursor();
+    return $invInfo;
+}
