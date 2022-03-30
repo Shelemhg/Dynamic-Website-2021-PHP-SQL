@@ -18,14 +18,12 @@
                 <img src="/phpmotors/images/logo.png" alt="" id="icon-img">
             </div>
             <div class="my-account-wrapper">
-                
-                    
-                    <form action="/phpmotors/vehicles/index.php" method="post">
 
+                    <form action="/phpmotors/vehicles/?action=search" method="GET">
+                        
+                        <input type="hidden" name="action" value="search">
                         <input type="text" placeholder="Search" name="search-query"  <?php if(isset($_SESSION['searchQuery'])){echo "value='$_SESSION[searchQuery]'";}  ?> required>
                         <input type="submit" value="Search">
-                        <input type="hidden" name="action" value="search">
-                        <input type="hidden" name="newSearch" value="1">
                     </form>
                     <div>
                     <?php 

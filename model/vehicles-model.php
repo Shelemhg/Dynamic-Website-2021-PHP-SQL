@@ -161,13 +161,29 @@ function getVehiclesByClassification($classificationName){
 }
 
 // Get a list of coincidences from a search query
-function searchDatabase($searchQuery){
+function searchDatabase($searchQuery, $currentPage){
+
+    $offset = ((int)$currentPage * 10) - 10;
+
     $db = phpmotorsConnect();
-    $sql = "SELECT * FROM inventory WHERE invMake LIKE CONCAT( '%', :searchQuery, '%') OR invModel LIKE CONCAT( '%', :searchQuery, '%') OR invDescription LIKE CONCAT( '%', :searchQuery, '%') OR invPrice LIKE CONCAT( '%', :searchQuery, '%') OR invColor LIKE CONCAT( '%', :searchQuery, '%') ORDER BY invId DESC";
+    $sql = "SELECT * FROM inventory WHERE invMake LIKE CONCAT( '%', :searchQuery, '%') OR invModel LIKE CONCAT( '%', :searchQuery, '%') OR invDescription LIKE CONCAT( '%', :searchQuery, '%') OR invPrice LIKE CONCAT( '%', :searchQuery, '%') OR invColor LIKE CONCAT( '%', :searchQuery, '%') ORDER BY invId DESC LIMIT :offset, 10";
     $stmt = $db->prepare($sql);
     $stmt->bindValue(':searchQuery', $searchQuery, PDO::PARAM_STR);
+    $stmt->bindValue(':offset', $offset, PDO::PARAM_INT);
     $stmt->execute();
     $invInfo = $stmt->fetchAll(PDO::FETCH_ASSOC);
     $stmt->closeCursor();
     return $invInfo;
+}
+
+function countCoincidences($searchQuery){
+
+    $db = phpmotorsConnect();
+    $sql = "SELECT COUNT(*) FROM inventory WHERE invMake LIKE CONCAT( '%', :searchQuery, '%') OR invModel LIKE CONCAT( '%', :searchQuery, '%') OR invDescription LIKE CONCAT( '%', :searchQuery, '%') OR invPrice LIKE CONCAT( '%', :searchQuery, '%') OR invColor LIKE CONCAT( '%', :searchQuery, '%')";
+    $stmt = $db->prepare($sql);
+    $stmt->bindValue(':searchQuery', $searchQuery, PDO::PARAM_STR);
+    $stmt->execute();
+    $countInfo = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    $stmt->closeCursor();
+    return $countInfo;
 }

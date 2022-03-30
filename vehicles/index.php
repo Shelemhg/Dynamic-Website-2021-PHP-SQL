@@ -252,35 +252,25 @@ switch ($action) {
 
 
     case 'search':
-        
-        unset($_SESSION['searchResult']);
         unset($_SESSION['searchQuery']);
-        unset($_SESSION['currentPage']);
         
-        $_SESSION['searchQuery'] = trim(filter_input(INPUT_POST, 'search-query', FILTER_SANITIZE_STRING));
-        $_SESSION['currentPage'] = 1;
-        // $currentPage = 1;
-        $_SESSION['searchResult'] = searchDatabase($_SESSION['searchQuery']);
-
-        // if($_SESSION['page'])
-
-        
+        $searchQuery = trim(filter_input(INPUT_GET, 'search-query', FILTER_SANITIZE_STRING));
+        $_SESSION['searchQuery'] = $searchQuery;
+        $currentPage = 1;        
 
         if(empty($_SESSION['searchQuery'])){
             $_SESSION['message'] = 'Please provide a search term';
             include $_SERVER['DOCUMENT_ROOT'] .'/phpmotors/index.php';
             unset($_SESSION['message']);
             exit;
-        }
+        }        
 
-        if($_SESSION['searchResult']){
+        $searchResults = searchDatabase($_SESSION['searchQuery'], $currentPage);
+        $totalResults = (int)countCoincidences($_SESSION['searchQuery'])[0]['COUNT(*)'];
 
-            $totalResults = sizeof($_SESSION['searchResult']);
-            $totalPages = ceil($totalResults/10);
+        if($searchResults){
 
-            $searchDisplay = buildSearchDisplay($_SESSION['searchResult'], $totalResults, $_SESSION['currentPage'], $totalPages);
-
-            // $searchDisplay = $_SESSION['currentPage'];
+            $searchDisplay = buildSearchDisplay($searchResults, $totalResults, $currentPage);
             $pageTitle = 'Search Result';
             include $_SERVER['DOCUMENT_ROOT'] .'/phpmotors/view/search-result.php';
             exit;
@@ -293,15 +283,11 @@ switch ($action) {
         break;
 
     case 'switch-page':
-        $newSearch = trim(filter_input(INPUT_GET, 'newSearch', FILTER_VALIDATE_INT));
         $currentPage = trim(filter_input(INPUT_GET, 'currentPage', FILTER_VALIDATE_INT));
-        // unset( $_SESSION['currentPage']);
-        $_SESSION['currentPage'] = $currentPage;
-        $totalResults = sizeof($_SESSION['searchResult']);
-        $totalPages = ceil($totalResults/10);
-
-
-        $searchDisplay = buildSearchDisplay($_SESSION['searchResult'], $totalResults, $_SESSION['currentPage'], $totalPages);
+        $totalResults = (int)trim(filter_input(INPUT_GET, 'totalResults', FILTER_VALIDATE_INT));
+        
+        $searchResults = searchDatabase($_SESSION['searchQuery'], $currentPage);
+        $searchDisplay = buildSearchDisplay($searchResults, $totalResults, $currentPage);
 
         // $searchDisplay = $_SESSION['currentPage'];
         $pageTitle = 'Search Result';

@@ -250,8 +250,10 @@ function buildThumbnailsDisplay($thumbnailsPath){
 
 
 //  Creates the search results Display
-function buildSearchDisplay($searchResult, $totalResults, $currentPage, $totalPages){    
-        //  Adds the text for the number of results found. Adds s for plural if more than 1.
+function buildSearchDisplay($searchResults, $totalResults, $currentPage){    
+        
+    $totalPages = ceil($totalResults/10);
+    //  Adds the text for the number of results found. Adds s for plural if more than 1.
         $sd = "<h2>Found $totalResults result";
         if($totalResults > 1){
             $sd .= "s";
@@ -259,18 +261,17 @@ function buildSearchDisplay($searchResult, $totalResults, $currentPage, $totalPa
         $sd .= " for: '$_SESSION[searchQuery]'</h2>";
 
     //  Creates each resuls capsule iterating depending on the page received
-    for($i = ((int)$currentPage * 10) - 10; $i < $totalResults ; $i++){
+    foreach($searchResults as $vehicle){
         $sd .= "<div class='search-item'>";
         $sd .= "<a href='/phpmotors/vehicles/?action=vehicleInfo&invId=";
-        $sd .= $searchResult[$i]['invId'];
+        $sd .= $vehicle['invId'];
         $sd .= "&classificationId=";
-        $sd .= $searchResult[$i]['classificationId'];
+        $sd .= $vehicle['classificationId'];
         $sd .= "'><h2>";
-        $sd .= $searchResult[$i]['invMake'] . " " . $searchResult[$i]['invModel'];
+        $sd .= $vehicle['invMake'] . " " . $vehicle['invModel'];
         $sd .= "</h2></a>";
-
         $sd .= "<p>";
-        $sd .= $searchResult[$i]['invDescription'];
+        $sd .= $vehicle['invDescription'];
         $sd .= "</p></div>";
     }
     $sd .= "<div class='horizontal'>";
@@ -278,11 +279,11 @@ function buildSearchDisplay($searchResult, $totalResults, $currentPage, $totalPa
     if($currentPage > 1){
         $sd .= "<a href='/phpmotors/vehicles/?action=switch-page&currentPage=";
         $sd .= $currentPage - 1;
-        $sd .= "&newSearch=0'> <<< </a>";
+        $sd .= "&totalResults=$totalResults'> <<< </a>";
     }
-    for($page = 1; $page <= $totalPages; $page++){
+    for($page = 1; $page <= $totalPages ; $page++){
         if($page != $currentPage){
-            $sd .= "<a href='/phpmotors/vehicles/?action=switch-page&currentPage=$page&newSearch=0'> $page </a>";
+            $sd .= "<a href='/phpmotors/vehicles/?action=switch-page&currentPage=$page&totalResults=$totalResults'> $page </a>";
         }else{
             $sd .= "<p> $page </p>";
         }
@@ -290,22 +291,11 @@ function buildSearchDisplay($searchResult, $totalResults, $currentPage, $totalPa
     if($currentPage < $totalPages){
         $sd .= "<a href='/phpmotors/vehicles/?action=switch-page&currentPage=";
         $sd .= $currentPage + 1;
-        $sd .= "&newSearch=0'> >>> </a>";
+        $sd .= "&totalResults=$totalResults'> >>> </a>";
     }
     
     $sd .= "</div>";
 
     return $sd;
 }
-
-// function buildSearchDisplay($searchResult){
-    
-//     $sd = "<div>";
-//     for($searchResult as $vehicle){
-//         $sd .= "<a href='/phpmotors/vehicles/?action=vehicleInfo&invId=$vehicle[invId]&classificationId=$vehicle[classificationId]'><h2>$vehicle[invMake] $vehicle[invModel]</h2></a>";
-//         $sd .= "<p>$vehicle[invDescription]</p>";
-//     }
-//     $sd .= "</div>";
-//     return $sd;
-// }
 ?>
